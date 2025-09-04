@@ -120,7 +120,7 @@ export default function StoreOrders() {
                                 {selectedOrder.orderItems.map((item, i) => (
                                     <div key={i} className="flex items-center gap-4 border border-slate-100 shadow rounded p-2">
                                         <img
-                                            src={item.product?.images?.[0]}
+                                            src={item.product.images?.[0].src || item.product.images?.[0]}
                                             alt={item.product?.name}
                                             className="w-16 h-16 object-cover rounded"
                                         />

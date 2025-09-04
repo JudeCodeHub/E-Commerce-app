@@ -272,6 +272,14 @@ export const couponDummyData = [
     { code: "PLUS10", description: "20% Off for Members", discount: 10, forNewUser: false, forMember: true, isPublic: false, expiresAt: "2027-03-06T00:00:00.000Z", createdAt: "2025-08-22T11:38:20.194Z" }
 ]
 
+export const dummyUserData = {
+    id: "user_31dQbH27HVtovbs13X2cmqefddM",
+    name: "GreatStack",
+    email: "greatstack@example.com",
+    image: gs_logo,
+    cart: {}
+}
+
 export const orderDummyData = [
     {
         id: "cmemm75h5001jtat89016h1p3",
@@ -291,6 +299,7 @@ export const orderDummyData = [
             { orderId: "cmemm75h5001jtat89016h1p3", productId: "cmemlxgnk0015tat84qm8si5v", quantity: 1, price: 149, product: productDummyData[1], }
         ],
         address: addressDummyData,
+        user: dummyUserData
     },
     {
         id: "cmemm6jv7001htat8vmm3gxaf",
@@ -311,16 +320,9 @@ export const orderDummyData = [
             { orderId: "cmemm6jv7001htat8vmm3gxaf", productId: "cmemlz8640019tat8kz7emqca", quantity: 1, price: 199, product: productDummyData[4], }
         ],
         address: addressDummyData,
+        user: dummyUserData
     }
 ]
-
-export const dummyUserData = {
-    id: "user_31dQbH27HVtovbs13X2cmqefddM",
-    name: "GreatStack",
-    email: "greatstack@example.com",
-    image: gs_logo,
-    cart: {}
-}
 
 export const storesDummyData = [
     {
