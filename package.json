@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.35.5",
+    "@prisma/client": "^7.1.0",
     "@reduxjs/toolkit": "^2.8.2",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.525.0",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "prisma": "^7.1.0",
     "tailwindcss": "^4"
   }
 }
