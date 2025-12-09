@@ -30,15 +30,15 @@ export async function POST(request) {
     if (coupon.discount) coupon.discount = Number(coupon.discount);
     if (coupon.expiresAt) coupon.expiresAt = new Date(coupon.expiresAt);
 
-    await prisma.coupon.create({data: coupon,}).then(async () => {
+    await prisma.coupon.create({ data: coupon }).then(async () => {
       await inngest.send({
-        name :"app/coupon.created",
+        name: "app/coupon.expired",
         data: {
           code: coupon.code,
-          expires_at:coupon.expiresAt
-        }
+          expires_at: coupon.expiresAt,
+        },
       });
-    })
+    });
 
     return NextResponse.json(
       { message: "Coupon added successfully" },
