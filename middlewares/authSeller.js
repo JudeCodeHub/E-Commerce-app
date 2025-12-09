@@ -12,7 +12,7 @@ const authSeller = async (userId) => {
     });
 
     if (user.store) {
-      if (user.store.status === "appoved") {
+      if (user.store.status === "approved") {
         return user.store.id;
       } else {
         return false;
