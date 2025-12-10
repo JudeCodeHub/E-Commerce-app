@@ -3,7 +3,7 @@ import authSeller from "@/middlewares/authSeller";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function POST(request) {
+export async function PUT(request) {
   try {
     const { userId } = getAuth(request);
     const { productId } = await request.json();

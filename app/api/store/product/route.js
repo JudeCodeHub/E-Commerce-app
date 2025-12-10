@@ -7,7 +7,6 @@ import authSeller from "@/middlewares/authSeller";
 export async function POST(request) {
   try {
     const { userId } = getAuth(request);
-
     const storeId = await authSeller(userId);
 
     if (!storeId) {
@@ -21,9 +20,17 @@ export async function POST(request) {
     const mrp = Number(formData.get("mrp"));
     const price = Number(formData.get("price"));
     const category = formData.get("category");
-    const images = formData.get("images");
 
-    if (!name || !description || !mrp || !price || !category || !images < 1) {
+    const images = formData.getAll("images");
+
+    if (
+      !name ||
+      !description ||
+      !mrp ||
+      !price ||
+      !category ||
+      images.length === 0
+    ) {
       return NextResponse.json(
         { error: "Missing product details" },
         { status: 400 }
@@ -38,15 +45,15 @@ export async function POST(request) {
           fileName: image.name,
           folder: "products",
         });
-        const url = imagekit.url({
-          path: response.filepath,
+
+        return imagekit.url({
+          path: response.filePath,
           transformation: [
             { quality: "auto" },
             { format: "webp" },
             { width: "512" },
           ],
         });
-        return url;
       })
     );
 
@@ -57,14 +64,14 @@ export async function POST(request) {
         mrp,
         price,
         category,
-        image: imageUrl,
+        images: imageUrl,
         storeId,
       },
     });
 
     return NextResponse.json({ message: "Product added successfully" });
   } catch (error) {
-    console.error(error);
+    console.error("Error adding product:", error);
     return NextResponse.json(
       { error: error.code || error.message },
       { status: 400 }
@@ -91,8 +98,10 @@ export async function GET(request) {
     return NextResponse.json({ products });
   } catch (error) {
     console.error(error);
+
     return NextResponse.json(
       { error: error.code || error.message },
+
       { status: 400 }
     );
   }
