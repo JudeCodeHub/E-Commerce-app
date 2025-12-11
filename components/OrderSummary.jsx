@@ -53,7 +53,7 @@ const OrderSummary = ({ totalPrice, items }) => {
                     ) : (
                         <div>
                             {
-                                addressList.length > 0 && (
+                                addressList?.length > 0 && (
                                     <select className='border border-slate-400 p-2 w-full my-3 outline-none rounded' onChange={(e) => setSelectedAddress(addressList[e.target.value])} >
                                         <option value="">Select Address</option>
                                         {
