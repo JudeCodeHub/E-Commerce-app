@@ -13,7 +13,7 @@ export default function Cart() {
     const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || '$';
     
     const { cartItems } = useSelector(state => state.cart);
-    const products = useSelector(state => state.product.list);
+    const products = useSelector(state => state.product?.list || []);
 
     const dispatch = useDispatch();
 
