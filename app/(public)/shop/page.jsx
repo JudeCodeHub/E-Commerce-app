@@ -1,16 +1,19 @@
 "use client";
-import ProductCard from "@/components/ProductCard";
+
+import { useEffect, useState, Suspense } from "react"; // 1. Import Suspense
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import { MailIcon, MapPinIcon, Store } from "lucide-react";
-import Loading from "@/components/Loading";
 import Image from "next/image";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-export default function ShopPage() {
-  const searchParams = useSearchParams();
 
+import ProductCard from "@/components/ProductCard";
+import Loading from "@/components/Loading";
+
+
+function ShopContent() {
+  const searchParams = useSearchParams();
   const username = searchParams.get("username");
 
   const [products, setProducts] = useState([]);
@@ -21,9 +24,7 @@ export default function ShopPage() {
     setLoading(true);
     try {
       if (username) {
-        const { data } = await axios.get(
-          `/api/store/data?username=${username}`
-        );
+        const { data } = await axios.get(`/api/store/data?username=${username}`);
         setStoreInfo(data.store);
         setProducts(data.products || data.store?.products || []);
       } else {
@@ -32,7 +33,6 @@ export default function ShopPage() {
       }
     } catch (error) {
       console.error(error);
-
       if (username) toast.error("Failed to load store");
     } finally {
       setLoading(false);
@@ -47,7 +47,7 @@ export default function ShopPage() {
 
   return (
     <div className="min-h-[70vh] mx-6">
-      {/* HEADER: Only show Store Info if we are viewing a specific store */}
+      {/* Store Header */}
       {username && storeInfo && (
         <div className="max-w-7xl mx-auto bg-slate-50 rounded-xl p-6 md:p-10 mt-6 flex flex-col md:flex-row items-center gap-6 shadow-xs">
           {storeInfo.logo ? (
@@ -85,25 +85,34 @@ export default function ShopPage() {
         </div>
       )}
 
-      {/* PRODUCTS GRID */}
+      {/* Products Grid */}
       <div className="max-w-7xl mx-auto mb-40">
         <h1 className="text-2xl mt-12 mb-6">
-          {username ? "Store" : "All"}{" "}
-          <span className="text-slate-800 font-medium">Products</span>
+          {username ? "Store" : "All"} <span className="text-slate-800 font-medium">Products</span>
         </h1>
-
+        
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products.length > 0 ? (
             products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))
           ) : (
-            <p className="col-span-full text-center text-gray-500 py-10">
-              No products found.
-            </p>
+             <p className="col-span-full text-center text-gray-500 py-10">
+               No products found.
+             </p>
           )}
         </div>
       </div>
     </div>
+  );
+}
+
+
+export default function ShopPage() {
+  return (
+   
+    <Suspense fallback={<Loading />}>
+      <ShopContent />
+    </Suspense>
   );
 }
