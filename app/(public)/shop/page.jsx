@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { MailIcon, MapPinIcon, Store } from "lucide-react";
+import { MailIcon, MapPinIcon, Search, Store } from "lucide-react";
 import Image from "next/image";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -15,6 +15,7 @@ function ShopContent() {
   const [products, setProducts] = useState([]);
   const [storeInfo, setStoreInfo] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "");
 
   const fetchData = async () => {
     setLoading(true);
@@ -38,6 +39,10 @@ function ShopContent() {
   useEffect(() => {
     fetchData();
   }, [username]);
+
+  const filteredProducts = products
+    .filter((product) => username || !product.featured)
+    .filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   if (loading) return <Loading />;
 
@@ -83,13 +88,25 @@ function ShopContent() {
 
       {/* Products Grid */}
       <div className="max-w-7xl mx-auto mb-40">
-        <h1 className="text-2xl mt-12 mb-6">
-          {username ? "Store" : "All"} <span className="text-slate-100 font-medium">Products</span>
-        </h1>
+        <div className="flex items-center gap-213 mt-12 mb-6 flex-wrap">
+          <h1 className="text-2xl">
+            {username ? "Store" : "All"} <span className="text-slate-100 font-medium">Products</span>
+          </h1>
+          <div className="flex items-center gap-2 bg-slate-800 border border-slate-700 px-4 py-2 rounded-full w-full sm:w-60">
+            <Search size={18} className="text-slate-400 shrink-0" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search products"
+              className="w-full bg-transparent outline-none text-sm text-slate-100 placeholder-slate-500"
+            />
+          </div>
+        </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.length > 0 ? (
-            products.map((product) => (
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))
           ) : (

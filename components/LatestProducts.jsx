@@ -5,11 +5,12 @@ import ProductCard from "./ProductCard";
 import { useSelector } from "react-redux";
 
 const LatestProducts = () => {
-  const displayQuantity = 4;
-  const products = useSelector((state) => state.product.list );
+  const displayQuantity = 5;
+  const allProducts = useSelector((state) => state.product.list );
+  const products = allProducts.filter((product) => product.featured);
 
   return (
-    <div className="px-6 my-30 max-w-6xl mx-auto">
+    <div className="px-6 my-30 max-w-[1600px] mx-auto">
       <Title
         title="Latest Products"
         description={`Showing ${
@@ -17,7 +18,7 @@ const LatestProducts = () => {
         } of ${products.length} products`}
         href="/shop"
       />
-      <div className="mt-12 grid grid-cols-2 sm:flex flex-wrap gap-6 justify-between">
+      <div className="mt-12 grid grid-cols-2 sm:flex flex-wrap justify-center gap-6">
         {products
           .slice()
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))

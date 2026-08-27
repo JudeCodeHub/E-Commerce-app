@@ -32,6 +32,7 @@ model Product {
     images      String[]
     category    String
     inStock     Boolean  @default(true)
+    featured    Boolean  @default(false)
     storeId     String
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
