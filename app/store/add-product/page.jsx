@@ -90,7 +90,7 @@ export default function StoreAddProduct() {
       </h1>
       <p className="mt-7">Product Images</p>
 
-      <div htmlFor="" className="flex gap-3 mt-4">
+      <div className="flex gap-3 mt-4">
         {Object.keys(images).map((key) => (
           <label key={key} htmlFor={`images${key}`}>
             <Image
@@ -117,7 +117,7 @@ export default function StoreAddProduct() {
         ))}
       </div>
 
-      <label htmlFor="" className="flex flex-col gap-2 my-6 ">
+      <label className="flex flex-col gap-2 my-6">
         Name
         <input
           type="text"
@@ -130,7 +130,7 @@ export default function StoreAddProduct() {
         />
       </label>
 
-      <label htmlFor="" className="flex flex-col gap-2 my-6 ">
+      <label className="flex flex-col gap-2 my-6">
         Description
         <textarea
           name="description"
@@ -144,7 +144,7 @@ export default function StoreAddProduct() {
       </label>
 
       <div className="flex gap-5">
-        <label htmlFor="" className="flex flex-col gap-2 ">
+        <label className="flex flex-col gap-2">
           Actual Price ($)
           <input
             type="number"
@@ -152,12 +152,11 @@ export default function StoreAddProduct() {
             onChange={onChangeHandler}
             value={productInfo.mrp}
             placeholder="0"
-            rows={5}
-            className="w-full max-w-45 p-2 px-4 outline-none border border-slate-200 rounded resize-none"
+            className="w-full max-w-45 p-2 px-4 outline-none border border-slate-200 rounded"
             required
           />
         </label>
-        <label htmlFor="" className="flex flex-col gap-2 ">
+        <label className="flex flex-col gap-2">
           Offer Price ($)
           <input
             type="number"
@@ -165,8 +164,7 @@ export default function StoreAddProduct() {
             onChange={onChangeHandler}
             value={productInfo.price}
             placeholder="0"
-            rows={5}
-            className="w-full max-w-45 p-2 px-4 outline-none border border-slate-200 rounded resize-none"
+            className="w-full max-w-45 p-2 px-4 outline-none border border-slate-200 rounded"
             required
           />
         </label>

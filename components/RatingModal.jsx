@@ -1,8 +1,6 @@
 "use client";
-
-import { Star } from "lucide-react";
-import React, { useState } from "react";
-import { XIcon } from "lucide-react";
+import { useState } from "react";
+import { Star, XIcon } from "lucide-react";
 import toast from "react-hot-toast";
 import { useAuth } from "@clerk/nextjs";
 import { useDispatch } from "react-redux";

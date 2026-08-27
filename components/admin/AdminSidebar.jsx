@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { assets } from "@/assets/assets";
 import { useUser } from "@clerk/nextjs";
 
 const AdminSidebar = () => {

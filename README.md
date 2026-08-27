@@ -5,9 +5,9 @@
     An open-source multi-vendor e-commerce platform built with Next.js and Tailwind CSS.
   </p>
   <p>
-    <a href="https://github.com/GreatStackDev/goCart/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/GreatStackDev/goCart?style=for-the-badge" alt="License"></a>
-    <a href="https://github.com/GreatStackDev/goCart/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge" alt="PRs Welcome"></a>
-    <a href="https://github.com/GreatStackDev/goCart/issues"><img src="https://img.shields.io/github/issues/GreatStackDev/goCart?style=for-the-badge" alt="GitHub issues"></a>
+    <a href="https://github.com/JudeCodeHub/E-Commerce-app/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/JudeCodeHub/E-Commerce-app?style=for-the-badge" alt="License"></a>
+    <a href="https://github.com/JudeCodeHub/E-Commerce-app/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge" alt="PRs Welcome"></a>
+    <a href="https://github.com/JudeCodeHub/E-Commerce-app/issues"><img src="https://img.shields.io/github/issues/JudeCodeHub/E-Commerce-app?style=for-the-badge" alt="GitHub issues"></a>
   </p>
 </div>
 
@@ -15,11 +15,10 @@
 
 ## 📖 Table of Contents
 
-- [✨ Features](#-features)
-- [🛠️ Tech Stack](#-tech-stack)
-- [🚀 Getting Started](#-getting-started)
-- [🤝 Contributing](#-contributing)
-- [📜 License](#-license)
+- [📖 Table of Contents](#-table-of-contents)
+- [Features](#features)
+- [🛠️ Tech Stack ](#️-tech-stack-)
+- [🚀 Getting Started ](#-getting-started-)
 
 ---
 
@@ -63,23 +62,3 @@ You can start editing the page by modifying `app/(public)/page.js`. The page aut
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Outfit](https://vercel.com/font), a new font family for Vercel.
 
----
-
-## 🤝 Contributing <a name="-contributing"></a>
-
-We welcome contributions! Please see our [CONTRIBUTING.md](./CONTRIBUTING.md) for more details on how to get started.
-
----
-
-## 📜 License <a name="-license"></a>
-
-This project is licensed under the MIT License. See the [LICENSE.md](./LICENSE.md) file for details.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
