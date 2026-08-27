@@ -11,7 +11,7 @@ const Hero = () => {
 
     return (
         <div className='mx-6'>
-            <div className='flex max-xl:flex-col gap-8 max-w-7xl mx-auto my-10'>
+            <div className='flex max-xl:flex-col gap-8 max-w-[1600px] mx-auto my-10'>
                 <div className='relative flex-1 flex flex-col bg-[#fbbd0c] rounded-3xl xl:min-h-100 group overflow-hidden'>
                     <div className='p-5 sm:p-16'>
                         <div className='inline-flex items-center gap-3 bg-amber-100 text-amber-700 pr-4 p-1 rounded-full text-xs sm:text-sm'>
@@ -26,7 +26,7 @@ const Hero = () => {
                         </div>
                         <button className='bg-slate-800 text-white text-sm py-2.5 px-7 sm:py-5 sm:px-12 mt-4 sm:mt-10 rounded-md hover:bg-slate-900 hover:scale-103 active:scale-95 transition'>LEARN MORE</button>
                     </div>
-                    <Image className='sm:absolute sm:top-1/2 sm:-translate-y-[58%] sm:-right-14 md:-right-2 w-full max-w-80 sm:max-w-105 mx-auto sm:mx-0 ' src={assets.hero_model_img} alt="" />
+                    <Image className='sm:absolute sm:top-1/2 sm:-translate-y-[55%] sm:-right-6 md:right-4 w-full max-w-80 sm:max-w-105 mx-auto sm:mx-0 ' src={assets.hero_model_img} alt="" />
                 </div>
                 <div className='flex flex-col md:flex-row xl:flex-col gap-5 w-full xl:max-w-sm text-sm text-slate-600'>
                     <div className='flex-1 flex items-center justify-between w-full bg-[#ff0000] rounded-3xl p-6 px-8 group'>
@@ -47,7 +47,6 @@ const Hero = () => {
             </div>
             <CategoriesMarquee />
         </div>
-
     )
 }
 

@@ -59,7 +59,14 @@ const AddressModal = ({ setShowAddressModal }) => {
       }
       className="fixed inset-0 z-50 bg-black/70 backdrop-blur h-screen flex items-center justify-center"
     >
-      <div className="flex flex-col gap-5 text-slate-100 w-full max-w-sm mx-6">
+      <div className="relative flex flex-col gap-5 text-slate-100 w-full max-w-sm mx-6 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+        <button
+          type="button"
+          onClick={() => setShowAddressModal(false)}
+          className="absolute top-4 right-4 text-red-500 hover:text-red-400 cursor-pointer"
+        >
+          <XIcon size={24} />
+        </button>
         <h2 className="text-3xl ">
           Add New <span className="font-semibold">Address</span>
         </h2>
@@ -143,11 +150,6 @@ const AddressModal = ({ setShowAddressModal }) => {
           SAVE ADDRESS
         </button>
       </div>
-      <XIcon
-        size={30}
-        className="absolute top-5 right-5 text-slate-400 hover:text-slate-200 cursor-pointer"
-        onClick={() => setShowAddressModal(false)}
-      />
     </form>
   );
 };

@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <nav className="relative bg-neutral-950">
       <div className="mx-6">
-        <div className="flex items-center justify-between max-w-7xl mx-auto py-4  transition-all">
+        <div className="flex items-center justify-between max-w-[1600px] mx-auto py-4  transition-all">
           <Link
             href="/"
             className="relative text-4xl font-semibold text-slate-100"
@@ -59,7 +59,7 @@ const Navbar = () => {
 
             <Link
               href="/cart"
-              className="relative flex items-center gap-2 text-slate-300"
+              className="relative flex items-center gap-2 text-slate-300 hover:text-amber-500 transition-colors"
             >
               <ShoppingCart size={18} />
               Cart
@@ -71,7 +71,7 @@ const Navbar = () => {
             {!user ? (
               <button
                 onClick={openSignIn}
-                className="px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full"
+                className="px-8 py-2 bg-amber-500 hover:bg-amber-600 transition text-white rounded-full"
               >
                 Login
               </button>
@@ -108,7 +108,7 @@ const Navbar = () => {
             ) : (
               <button
                 onClick={openSignIn}
-                className="px-7 py-1.5 bg-indigo-500 hover:bg-indigo-600 text-sm transition text-white rounded-full"
+                className="px-7 py-1.5 bg-amber-500 hover:bg-amber-600 text-sm transition text-white rounded-full"
               >
                 Login
               </button>
