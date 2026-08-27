@@ -4,9 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import Loading from "@/components/Loading";
-import { useUser } from "@clerk/nextjs";
+import { useUser, useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
 
 export default function CreateStore() {
@@ -46,7 +45,7 @@ export default function CreateStore() {
             setMessage(
               "Your store has been approved, you can now add product to your store from dashboard"
             );
-            setTimeout(() => router.push("/store/dashboard"), 5000);
+            setTimeout(() => router.push("/store"), 5000);
             break;
           case "rejected":
             setMessage(

@@ -1,11 +1,9 @@
 "use client";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 import Loading from "@/components/Loading";
-import { productDummyData } from "@/assets/assets";
-import { useAuth } from "@clerk/nextjs";
-import { useUser } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import axios from "axios";
 
 export default function StoreManageProducts() {

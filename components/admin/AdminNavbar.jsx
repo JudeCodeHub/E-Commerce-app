@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useUser,UserButton } from "@clerk/nextjs";
-
+import { useUser, UserButton } from "@clerk/nextjs";
 
 const AdminNavbar = () => {
   const { user } = useUser();

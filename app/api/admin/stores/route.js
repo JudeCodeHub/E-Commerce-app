@@ -15,10 +15,11 @@ export async function GET(request) {
 
     const stores = await prisma.store.findMany({
       where: {
-        status: "approved"},
-        include: {
-          user: true,
-        },
+        status: "approved",
+      },
+      include: {
+        user: true,
+      },
     });
 
     return NextResponse.json(stores, { status: 200 });

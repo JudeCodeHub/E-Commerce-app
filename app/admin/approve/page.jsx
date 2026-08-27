@@ -1,11 +1,9 @@
 "use client";
-import { storesDummyData } from "@/assets/assets";
 import StoreInfo from "@/components/admin/StoreInfo";
 import Loading from "@/components/Loading";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useUser } from "@clerk/nextjs";
-import { useAuth } from "@clerk/nextjs";
+import { useUser, useAuth } from "@clerk/nextjs";
 import axios from "axios";
 
 export default function AdminApprove() {

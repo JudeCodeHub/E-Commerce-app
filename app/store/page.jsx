@@ -1,5 +1,4 @@
 "use client";
-import { dummyStoreDashboardData } from "@/assets/assets";
 import Loading from "@/components/Loading";
 import {
   CircleDollarSignIcon,

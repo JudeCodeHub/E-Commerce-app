@@ -28,13 +28,11 @@ const ProductDescription = ({ product }) => {
             {/* Reviews */}
             {selectedTab === "Reviews" && (
                 <div className="flex flex-col gap-3 mt-14">
-                    {product.rating.map((item,index) => (
+                    {product.rating.map((item, index) => (
                         <div key={index} className="flex gap-5 mb-10">
-                            {/* ORIGINAL CODE: I put this back exactly as you had it */}
                             <Image src={item.user.image} alt="" className="size-10 rounded-full" width={100} height={100} />
-                            
                             <div>
-                                <div className="flex items-center" >
+                                <div className="flex items-center">
                                     {Array(5).fill('').map((_, index) => (
                                         <StarIcon key={index} size={18} className='text-transparent mt-0.5' fill={item.rating >= index + 1 ? "#00C950" : "#D1D5DB"} />
                                     ))}
@@ -50,16 +48,14 @@ const ProductDescription = ({ product }) => {
 
             {/* Store Page */}
             <div className="flex gap-3 mt-14">
-                
-                {/* MODIFIED CODE: Only this part has the logic to show the Icon if the logo is missing */}
                 {product.store.logo ? (
-                     <Image 
+                    <Image 
                         src={product.store.logo} 
                         alt="" 
                         className="size-11 rounded-full ring ring-slate-400" 
                         width={100} 
                         height={100} 
-                     />
+                    />
                 ) : (
                     <div className="size-11 rounded-full ring ring-slate-400 flex items-center justify-center bg-slate-100">
                         <Store className="text-slate-500" size={24} />

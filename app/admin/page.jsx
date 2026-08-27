@@ -1,5 +1,4 @@
 "use client";
-import { dummyAdminDashboardData } from "@/assets/assets";
 import Loading from "@/components/Loading";
 import OrdersAreaChart from "@/components/OrdersAreaChart";
 import { useAuth } from "@clerk/nextjs";

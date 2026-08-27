@@ -1,16 +1,12 @@
 "use client";
-
-import { useEffect, useState, Suspense } from "react"; // 1. Import Suspense
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { MailIcon, MapPinIcon, Store } from "lucide-react";
 import Image from "next/image";
 import axios from "axios";
 import toast from "react-hot-toast";
-
-
 import ProductCard from "@/components/ProductCard";
 import Loading from "@/components/Loading";
-
 
 function ShopContent() {
   const searchParams = useSearchParams();
@@ -107,10 +103,8 @@ function ShopContent() {
   );
 }
 
-
 export default function ShopPage() {
   return (
-   
     <Suspense fallback={<Loading />}>
       <ShopContent />
     </Suspense>

@@ -1,5 +1,4 @@
 "use client";
-import { storesDummyData } from "@/assets/assets";
 import StoreInfo from "@/components/admin/StoreInfo";
 import Loading from "@/components/Loading";
 import { useAuth, useUser } from "@clerk/nextjs";

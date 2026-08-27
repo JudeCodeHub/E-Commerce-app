@@ -2,7 +2,6 @@ import Stripe from "stripe";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(request) {
@@ -23,7 +22,7 @@ export async function POST(request) {
 
       const { orderIds, userId, appId } = session.data[0].metadata;
 
-      if (appId != "gocart") {
+      if (appId !== "gocart") {
         return NextResponse.json(
           {
             received: true,

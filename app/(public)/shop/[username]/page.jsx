@@ -2,7 +2,6 @@
 import ProductCard from "@/components/ProductCard";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-// 1. ADDED 'Store' icon to imports
 import { MailIcon, MapPinIcon, Store } from "lucide-react";
 import Loading from "@/components/Loading";
 import Image from "next/image";
@@ -55,8 +54,7 @@ export default function StoreShop() {
             <p className="text-sm text-slate-600 mt-2 max-w-lg">
               {storeInfo.description}
             </p>
-            <div className="text-xs text-slate-500 mt-4 space-y-1"></div>
-            <div className="space-y-2 text-sm text-slate-500">
+            <div className="space-y-2 text-sm text-slate-500 mt-4">
               <div className="flex items-center">
                 <MapPinIcon className="w-4 h-4 text-gray-500 mr-2" />
                 <span>{storeInfo.address}</span>
