@@ -55,9 +55,9 @@ export default function AdminStores() {
   }, [user]);
 
   return !loading ? (
-    <div className="text-slate-500 mb-28">
+    <div className="text-slate-400 mb-28">
       <h1 className="text-2xl">
-        Live <span className="text-slate-800 font-medium">Stores</span>
+        Live <span className="text-slate-100 font-medium">Stores</span>
       </h1>
 
       {stores.length ? (
@@ -65,7 +65,7 @@ export default function AdminStores() {
           {stores.map((store) => (
             <div
               key={store.id}
-              className="bg-white border border-slate-200 rounded-lg shadow-sm p-6 flex max-md:flex-col gap-4 md:items-end max-w-4xl"
+              className="bg-slate-900 border border-slate-800 rounded-lg shadow-sm p-6 flex max-md:flex-col gap-4 md:items-end max-w-4xl"
             >
               {/* Store Info */}
               <StoreInfo store={store} />
@@ -73,7 +73,7 @@ export default function AdminStores() {
               {/* Actions */}
               <div className="flex items-center gap-3 pt-2 flex-wrap">
                 <p>Active</p>
-                <label className="relative inline-flex items-center cursor-pointer text-gray-900">
+                <label className="relative inline-flex items-center cursor-pointer text-slate-200">
                   <input
                     type="checkbox"
                     className="sr-only peer"
@@ -84,7 +84,7 @@ export default function AdminStores() {
                     }
                     checked={store.isActive}
                   />
-                  <div className="w-9 h-5 bg-slate-300 rounded-full peer peer-checked:bg-amber-600 transition-colors duration-200"></div>
+                  <div className="w-9 h-5 bg-slate-700 rounded-full peer peer-checked:bg-amber-600 transition-colors duration-200"></div>
                   <span className="dot absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-4"></span>
                 </label>
               </div>

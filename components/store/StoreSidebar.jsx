@@ -25,7 +25,7 @@ const StoreSidebar = ({ storeInfo }) => {
   ];
 
   return (
-    <div className="inline-flex h-full flex-col gap-5 border-r border-slate-200 sm:min-w-60">
+    <div className="inline-flex h-full flex-col gap-5 border-r border-slate-800 sm:min-w-60">
       <div className="flex flex-col gap-3 justify-center items-center pt-8 max-sm:hidden">
         {/* FIX: Check if logo exists before rendering Image */}
         {storeInfo?.logo ? (
@@ -38,12 +38,12 @@ const StoreSidebar = ({ storeInfo }) => {
           />
         ) : (
           // Fallback UI if no logo exists
-          <div className="w-14 h-14 rounded-full shadow-md bg-slate-200 flex items-center justify-center text-slate-500">
+          <div className="w-14 h-14 rounded-full shadow-md bg-slate-800 flex items-center justify-center text-slate-400">
             <Store size={24} />
           </div>
         )}
 
-        <p className="text-slate-700 font-medium">{storeInfo?.name}</p>
+        <p className="text-slate-100 font-medium">{storeInfo?.name}</p>
       </div>
 
       <div className="max-sm:mt-6">
@@ -51,8 +51,8 @@ const StoreSidebar = ({ storeInfo }) => {
           <Link
             key={index}
             href={link.href}
-            className={`relative flex items-center gap-3 text-slate-500 hover:bg-slate-50 p-2.5 transition ${
-              pathname === link.href && "bg-slate-100 sm:text-slate-600"
+            className={`relative flex items-center gap-3 text-slate-400 hover:bg-slate-800 p-2.5 transition ${
+              pathname === link.href && "bg-slate-800 sm:text-slate-100"
             }`}
           >
             <link.icon size={18} className="sm:ml-5" />

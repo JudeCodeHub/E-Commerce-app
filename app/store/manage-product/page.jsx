@@ -70,11 +70,11 @@ export default function StoreManageProducts() {
 
   return (
     <>
-      <h1 className="text-2xl text-slate-500 mb-5">
-        Manage <span className="text-slate-800 font-medium">Products</span>
+      <h1 className="text-2xl text-slate-400 mb-5">
+        Manage <span className="text-slate-100 font-medium">Products</span>
       </h1>
-      <table className="w-full max-w-4xl text-left  ring ring-slate-200  rounded overflow-hidden text-sm">
-        <thead className="bg-slate-50 text-gray-700 uppercase tracking-wider">
+      <table className="w-full max-w-4xl text-left  ring ring-slate-800  rounded overflow-hidden text-sm">
+        <thead className="bg-slate-800 text-slate-300 uppercase tracking-wider">
           <tr>
             <th className="px-4 py-3">Name</th>
             <th className="px-4 py-3 hidden md:table-cell">Description</th>
@@ -83,11 +83,11 @@ export default function StoreManageProducts() {
             <th className="px-4 py-3">Actions</th>
           </tr>
         </thead>
-        <tbody className="text-slate-700">
+        <tbody className="text-slate-300">
           {products.map((product) => (
             <tr
               key={product.id}
-              className="border-t border-gray-200 hover:bg-gray-50"
+              className="border-t border-slate-800 hover:bg-slate-800"
             >
               <td className="px-4 py-3">
                 <div className="flex gap-2 items-center">
@@ -101,7 +101,7 @@ export default function StoreManageProducts() {
                   {product.name}
                 </div>
               </td>
-              <td className="px-4 py-3 max-w-md text-slate-600 hidden md:table-cell truncate">
+              <td className="px-4 py-3 max-w-md text-slate-400 hidden md:table-cell truncate">
                 {product.description}
               </td>
               <td className="px-4 py-3 hidden md:table-cell">
@@ -111,7 +111,7 @@ export default function StoreManageProducts() {
                 {currency} {product.price.toLocaleString()}
               </td>
               <td className="px-4 py-3 text-center">
-                <label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
+                <label className="relative inline-flex items-center cursor-pointer text-slate-200 gap-3">
                   <input
                     type="checkbox"
                     className="sr-only peer"
@@ -122,7 +122,7 @@ export default function StoreManageProducts() {
                     }
                     checked={product.inStock}
                   />
-                  <div className="w-9 h-5 bg-slate-300 rounded-full peer peer-checked:bg-amber-600 transition-colors duration-200"></div>
+                  <div className="w-9 h-5 bg-slate-700 rounded-full peer peer-checked:bg-amber-600 transition-colors duration-200"></div>
                   <span className="dot absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-4"></span>
                 </label>
               </td>

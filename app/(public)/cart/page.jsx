@@ -47,7 +47,7 @@ export default function Cart() {
     }, [cartItems, products]);
 
     return cartArray.length > 0 ? (
-        <div className="min-h-screen mx-6 text-slate-800">
+        <div className="min-h-screen mx-6 text-slate-100">
 
             <div className="max-w-7xl mx-auto ">
                 {/* Title */}
@@ -55,7 +55,7 @@ export default function Cart() {
 
                 <div className="flex items-start justify-between gap-5 max-lg:flex-col">
 
-                    <table className="w-full max-w-4xl text-slate-600 table-auto">
+                    <table className="w-full max-w-4xl text-slate-300 table-auto">
                         <thead>
                             <tr className="max-sm:text-sm">
                                 <th className="text-left">Product</th>
@@ -74,7 +74,7 @@ export default function Cart() {
                                             </div>
                                             <div>
                                                 <p className="max-sm:text-sm">{item.name}</p>
-                                                <p className="text-xs text-slate-500">{item.category}</p>
+                                                <p className="text-xs text-slate-400">{item.category}</p>
                                                 <p>{currency}{item.price}</p>
                                             </div>
                                         </td>
@@ -83,7 +83,7 @@ export default function Cart() {
                                         </td>
                                         <td className="text-center">{currency}{(item.price * item.quantity).toLocaleString()}</td>
                                         <td className="text-center max-md:hidden">
-                                            <button onClick={() => handleDeleteItemFromCart(item.id)} className=" text-red-500 hover:bg-red-50 p-2.5 rounded-full active:scale-95 transition-all">
+                                            <button onClick={() => handleDeleteItemFromCart(item.id)} className=" text-red-500 hover:bg-red-500/10 p-2.5 rounded-full active:scale-95 transition-all">
                                                 <Trash2Icon size={18} />
                                             </button>
                                         </td>

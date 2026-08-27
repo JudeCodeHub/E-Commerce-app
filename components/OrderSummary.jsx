@@ -93,8 +93,8 @@ const OrderSummary = ({ totalPrice, items }) => {
   };
 
   return (
-    <div className="w-full max-w-lg lg:max-w-[340px] bg-slate-50/30 border border-slate-200 text-slate-500 text-sm rounded-xl p-7">
-      <h2 className="text-xl font-medium text-slate-600">Payment Summary</h2>
+    <div className="w-full max-w-lg lg:max-w-[340px] bg-slate-900 border border-slate-800 text-slate-400 text-sm rounded-xl p-7">
+      <h2 className="text-xl font-medium text-slate-100">Payment Summary</h2>
       <p className="text-slate-400 text-xs my-4">Payment Method</p>
       <div className="flex gap-2 items-center">
         <input
@@ -121,7 +121,7 @@ const OrderSummary = ({ totalPrice, items }) => {
           Stripe Payment
         </label>
       </div>
-      <div className="my-4 py-4 border-y border-slate-200 text-slate-400">
+      <div className="my-4 py-4 border-y border-slate-800 text-slate-400">
         <p>Address</p>
         {selectedAddress ? (
           <div className="flex gap-2 items-center">
@@ -139,7 +139,7 @@ const OrderSummary = ({ totalPrice, items }) => {
           <div>
             {addressList?.length > 0 && (
               <select
-                className="border border-slate-400 p-2 w-full my-3 outline-none rounded"
+                className="border border-slate-700 bg-slate-800 text-slate-100 p-2 w-full my-3 outline-none rounded"
                 onChange={(e) =>
                   setSelectedAddress(addressList[e.target.value])
                 }
@@ -154,7 +154,7 @@ const OrderSummary = ({ totalPrice, items }) => {
               </select>
             )}
             <button
-              className="flex items-center gap-1 text-slate-600 mt-1"
+              className="flex items-center gap-1 text-slate-300 mt-1"
               onClick={() => setShowAddressModal(true)}
             >
               Add Address <PlusIcon size={18} />
@@ -162,7 +162,7 @@ const OrderSummary = ({ totalPrice, items }) => {
           </div>
         )}
       </div>
-      <div className="pb-4 border-b border-slate-200">
+      <div className="pb-4 border-b border-slate-800">
         <div className="flex justify-between">
           <div className="flex flex-col gap-1 text-slate-400">
             <p>Subtotal:</p>
@@ -200,7 +200,7 @@ const OrderSummary = ({ totalPrice, items }) => {
               value={couponCodeInput}
               type="text"
               placeholder="Coupon Code"
-              className="border border-slate-400 p-1.5 rounded w-full outline-none"
+              className="border border-slate-700 bg-slate-800 text-slate-100 placeholder-slate-500 p-1.5 rounded w-full outline-none"
             />
             <button className="bg-slate-600 text-white px-3 rounded hover:bg-slate-800 active:scale-95 transition-all">
               Apply
@@ -250,7 +250,7 @@ const OrderSummary = ({ totalPrice, items }) => {
         onClick={(e) =>
           toast.promise(handlePlaceOrder(e), { loading: "placing Order..." })
         }
-        className="w-full bg-slate-700 text-white py-2.5 rounded hover:bg-slate-900 active:scale-95 transition-all"
+        className="w-full bg-slate-700 text-white py-2.5 rounded hover:bg-slate-600 active:scale-95 transition-all"
       >
         Place Order
       </button>

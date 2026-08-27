@@ -85,7 +85,7 @@ export default function AdminCoupons() {
   }, []);
 
   return (
-    <div className="text-slate-500 mb-40">
+    <div className="text-slate-400 mb-40">
       {/* Add Coupon */}
       <form
         onSubmit={(e) =>
@@ -94,13 +94,13 @@ export default function AdminCoupons() {
         className="max-w-sm text-sm"
       >
         <h2 className="text-2xl">
-          Add <span className="text-slate-800 font-medium">Coupons</span>
+          Add <span className="text-slate-100 font-medium">Coupons</span>
         </h2>
         <div className="flex gap-2 max-sm:flex-col mt-2">
           <input
             type="text"
             placeholder="Coupon Code"
-            className="w-full mt-2 p-2 border border-slate-200 outline-slate-400 rounded-md"
+            className="w-full mt-2 p-2 border border-slate-700 bg-slate-800 text-slate-100 outline-slate-500 rounded-md"
             name="code"
             value={newCoupon.code}
             onChange={handleChange}
@@ -111,7 +111,7 @@ export default function AdminCoupons() {
             placeholder="Coupon Discount (%)"
             min={1}
             max={100}
-            className="w-full mt-2 p-2 border border-slate-200 outline-slate-400 rounded-md"
+            className="w-full mt-2 p-2 border border-slate-700 bg-slate-800 text-slate-100 outline-slate-500 rounded-md"
             name="discount"
             value={newCoupon.discount}
             onChange={handleChange}
@@ -121,7 +121,7 @@ export default function AdminCoupons() {
         <input
           type="text"
           placeholder="Coupon Description"
-          className="w-full mt-2 p-2 border border-slate-200 outline-slate-400 rounded-md"
+          className="w-full mt-2 p-2 border border-slate-700 bg-slate-800 text-slate-100 outline-slate-500 rounded-md"
           name="description"
           value={newCoupon.description}
           onChange={handleChange}
@@ -133,7 +133,7 @@ export default function AdminCoupons() {
           <input
             type="date"
             placeholder="Coupon Expires At"
-            className="w-full mt-1 p-2 border border-slate-200 outline-slate-400 rounded-md"
+            className="w-full mt-1 p-2 border border-slate-700 bg-slate-800 text-slate-100 outline-slate-500 rounded-md"
             name="expiresAt"
             value={format(newCoupon.expiresAt, "yyyy-MM-dd")}
             onChange={handleChange}
@@ -142,7 +142,7 @@ export default function AdminCoupons() {
 
         <div className="mt-5">
           <div className="flex gap-2 mt-3">
-            <label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
+            <label className="relative inline-flex items-center cursor-pointer text-slate-200 gap-3">
               <input
                 type="checkbox"
                 className="sr-only peer"
@@ -152,13 +152,13 @@ export default function AdminCoupons() {
                   setNewCoupon({ ...newCoupon, forNewUser: e.target.checked })
                 }
               />
-              <div className="w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-amber-600 transition-colors duration-200"></div>
+              <div className="w-11 h-6 bg-slate-700 rounded-full peer peer-checked:bg-amber-600 transition-colors duration-200"></div>
               <span className="dot absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
             </label>
             <p>For New User</p>
           </div>
           <div className="flex gap-2 mt-3">
-            <label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
+            <label className="relative inline-flex items-center cursor-pointer text-slate-200 gap-3">
               <input
                 type="checkbox"
                 className="sr-only peer"
@@ -168,7 +168,7 @@ export default function AdminCoupons() {
                   setNewCoupon({ ...newCoupon, forMember: e.target.checked })
                 }
               />
-              <div className="w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-amber-600 transition-colors duration-200"></div>
+              <div className="w-11 h-6 bg-slate-700 rounded-full peer peer-checked:bg-amber-600 transition-colors duration-200"></div>
               <span className="dot absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
             </label>
             <p>For Member</p>
@@ -182,57 +182,57 @@ export default function AdminCoupons() {
       {/* List Coupons */}
       <div className="mt-14">
         <h2 className="text-2xl">
-          List <span className="text-slate-800 font-medium">Coupons</span>
+          List <span className="text-slate-100 font-medium">Coupons</span>
         </h2>
-        <div className="overflow-x-auto mt-4 rounded-lg border border-slate-200 max-w-4xl">
-          <table className="min-w-full bg-white text-sm">
-            <thead className="bg-slate-50">
+        <div className="overflow-x-auto mt-4 rounded-lg border border-slate-800 max-w-4xl">
+          <table className="min-w-full bg-slate-900 text-sm">
+            <thead className="bg-slate-800">
               <tr>
-                <th className="py-3 px-4 text-left font-semibold text-slate-600">
+                <th className="py-3 px-4 text-left font-semibold text-slate-300">
                   Code
                 </th>
-                <th className="py-3 px-4 text-left font-semibold text-slate-600">
+                <th className="py-3 px-4 text-left font-semibold text-slate-300">
                   Description
                 </th>
-                <th className="py-3 px-4 text-left font-semibold text-slate-600">
+                <th className="py-3 px-4 text-left font-semibold text-slate-300">
                   Discount
                 </th>
-                <th className="py-3 px-4 text-left font-semibold text-slate-600">
+                <th className="py-3 px-4 text-left font-semibold text-slate-300">
                   Expires At
                 </th>
-                <th className="py-3 px-4 text-left font-semibold text-slate-600">
+                <th className="py-3 px-4 text-left font-semibold text-slate-300">
                   New User
                 </th>
-                <th className="py-3 px-4 text-left font-semibold text-slate-600">
+                <th className="py-3 px-4 text-left font-semibold text-slate-300">
                   For Member
                 </th>
-                <th className="py-3 px-4 text-left font-semibold text-slate-600">
+                <th className="py-3 px-4 text-left font-semibold text-slate-300">
                   Action
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-slate-800">
               {coupons.map((coupon) => (
-                <tr key={coupon.code} className="hover:bg-slate-50">
-                  <td className="py-3 px-4 font-medium text-slate-800">
+                <tr key={coupon.code} className="hover:bg-slate-800">
+                  <td className="py-3 px-4 font-medium text-slate-100">
                     {coupon.code}
                   </td>
-                  <td className="py-3 px-4 text-slate-800">
+                  <td className="py-3 px-4 text-slate-100">
                     {coupon.description}
                   </td>
-                  <td className="py-3 px-4 text-slate-800">
+                  <td className="py-3 px-4 text-slate-100">
                     {coupon.discount}%
                   </td>
-                  <td className="py-3 px-4 text-slate-800">
+                  <td className="py-3 px-4 text-slate-100">
                     {format(coupon.expiresAt, "yyyy-MM-dd")}
                   </td>
-                  <td className="py-3 px-4 text-slate-800">
+                  <td className="py-3 px-4 text-slate-100">
                     {coupon.forNewUser ? "Yes" : "No"}
                   </td>
-                  <td className="py-3 px-4 text-slate-800">
+                  <td className="py-3 px-4 text-slate-100">
                     {coupon.forMember ? "Yes" : "No"}
                   </td>
-                  <td className="py-3 px-4 text-slate-800">
+                  <td className="py-3 px-4 text-slate-100">
                     <DeleteIcon
                       onClick={() =>
                         toast.promise(deleteCoupon(coupon.code), {

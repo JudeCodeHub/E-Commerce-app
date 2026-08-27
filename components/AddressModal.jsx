@@ -57,9 +57,9 @@ const AddressModal = ({ setShowAddressModal }) => {
       onSubmit={(e) =>
         toast.promise(handleSubmit(e), { loading: "Adding Address..." })
       }
-      className="fixed inset-0 z-50 bg-white/60 backdrop-blur h-screen flex items-center justify-center"
+      className="fixed inset-0 z-50 bg-black/70 backdrop-blur h-screen flex items-center justify-center"
     >
-      <div className="flex flex-col gap-5 text-slate-700 w-full max-w-sm mx-6">
+      <div className="flex flex-col gap-5 text-slate-100 w-full max-w-sm mx-6">
         <h2 className="text-3xl ">
           Add New <span className="font-semibold">Address</span>
         </h2>
@@ -67,7 +67,7 @@ const AddressModal = ({ setShowAddressModal }) => {
           name="name"
           onChange={handleAddressChange}
           value={address.name}
-          className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+          className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
           type="text"
           placeholder="Enter your name"
           required
@@ -76,7 +76,7 @@ const AddressModal = ({ setShowAddressModal }) => {
           name="email"
           onChange={handleAddressChange}
           value={address.email}
-          className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+          className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
           type="email"
           placeholder="Email address"
           required
@@ -85,7 +85,7 @@ const AddressModal = ({ setShowAddressModal }) => {
           name="street"
           onChange={handleAddressChange}
           value={address.street}
-          className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+          className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
           type="text"
           placeholder="Street"
           required
@@ -95,7 +95,7 @@ const AddressModal = ({ setShowAddressModal }) => {
             name="city"
             onChange={handleAddressChange}
             value={address.city}
-            className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+            className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
             type="text"
             placeholder="City"
             required
@@ -104,7 +104,7 @@ const AddressModal = ({ setShowAddressModal }) => {
             name="state"
             onChange={handleAddressChange}
             value={address.state}
-            className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+            className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
             type="text"
             placeholder="State"
             required
@@ -115,7 +115,7 @@ const AddressModal = ({ setShowAddressModal }) => {
             name="zip"
             onChange={handleAddressChange}
             value={address.zip}
-            className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+            className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
             type="number"
             placeholder="Zip code"
             required
@@ -124,7 +124,7 @@ const AddressModal = ({ setShowAddressModal }) => {
             name="country"
             onChange={handleAddressChange}
             value={address.country}
-            className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+            className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
             type="text"
             placeholder="Country"
             required
@@ -134,18 +134,18 @@ const AddressModal = ({ setShowAddressModal }) => {
           name="phone"
           onChange={handleAddressChange}
           value={address.phone}
-          className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+          className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
           type="text"
           placeholder="Phone"
           required
         />
-        <button className="bg-slate-800 text-white text-sm font-medium py-2.5 rounded-md hover:bg-slate-900 active:scale-95 transition-all">
+        <button className="bg-slate-800 text-white text-sm font-medium py-2.5 rounded-md hover:bg-slate-700 active:scale-95 transition-all">
           SAVE ADDRESS
         </button>
       </div>
       <XIcon
         size={30}
-        className="absolute top-5 right-5 text-slate-500 hover:text-slate-700 cursor-pointer"
+        className="absolute top-5 right-5 text-slate-400 hover:text-slate-200 cursor-pointer"
         onClick={() => setShowAddressModal(false)}
       />
     </form>

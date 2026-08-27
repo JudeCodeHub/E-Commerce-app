@@ -7,7 +7,7 @@ const PageTitle = ({ heading, text, path = "/", linkText }) => {
         <div className="my-6">
             <h2 className="text-2xl font-semibold">{heading}</h2>
             <div className="flex items-center gap-3">
-                <p className="text-slate-600">{text}</p>
+                <p className="text-slate-400">{text}</p>
                 <Link href={path} className="flex items-center gap-1 text-amber-500 text-sm">
                     {linkText} <ArrowRightIcon size={14} />
                 </Link>

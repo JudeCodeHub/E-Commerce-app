@@ -19,12 +19,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="relative bg-white">
+    <nav className="relative bg-neutral-950">
       <div className="mx-6">
         <div className="flex items-center justify-between max-w-7xl mx-auto py-4  transition-all">
           <Link
             href="/"
-            className="relative text-4xl font-semibold text-slate-700"
+            className="relative text-4xl font-semibold text-slate-100"
           >
             <span className="text-amber-600">Nex</span>Buy
             <span className="text-amber-600 text-5xl leading-0">.</span>
@@ -36,19 +36,19 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden sm:flex items-center gap-4 lg:gap-8 text-slate-600">
-            <Link href="/">Home</Link>
-            <Link href="/shop">Shop</Link>
-            <Link href="/">About</Link>
-            <Link href="/">Contact</Link>
+          <div className="hidden sm:flex items-center gap-4 lg:gap-8 text-slate-300 text-[17px]">
+            <Link href="/" className="hover:text-amber-500 transition-colors">Home</Link>
+            <Link href="/shop" className="hover:text-amber-500 transition-colors">Shop</Link>
+            <Link href="/" className="hover:text-amber-500 transition-colors">About</Link>
+            <Link href="/" className="hover:text-amber-500 transition-colors">Contact</Link>
 
             <form
               onSubmit={handleSearch}
-              className="hidden xl:flex items-center w-xs text-sm gap-2 bg-slate-100 px-4 py-3 rounded-full"
+              className="hidden xl:flex items-center w-xs text-sm gap-2 bg-slate-800 px-4 py-3 rounded-full"
             >
-              <Search size={18} className="text-slate-600" />
+              <Search size={18} className="text-slate-400" />
               <input
-                className="w-full bg-transparent outline-none placeholder-slate-600"
+                className="w-full bg-transparent outline-none placeholder-slate-500"
                 type="text"
                 placeholder="Search products"
                 value={search}
@@ -59,7 +59,7 @@ const Navbar = () => {
 
             <Link
               href="/cart"
-              className="relative flex items-center gap-2 text-slate-600"
+              className="relative flex items-center gap-2 text-slate-300"
             >
               <ShoppingCart size={18} />
               Cart
@@ -116,7 +116,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <hr className="border-gray-300" />
+      <hr className="border-slate-800" />
     </nav>
   );
 };
