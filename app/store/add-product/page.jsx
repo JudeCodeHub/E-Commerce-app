@@ -83,10 +83,10 @@ export default function StoreAddProduct() {
       onSubmit={(e) =>
         toast.promise(onSubmitHandler(e), { loading: "Adding Product..." })
       }
-      className="text-slate-500 mb-28"
+      className="text-slate-400 mb-28"
     >
       <h1 className="text-2xl">
-        Add New <span className="text-slate-800 font-medium">Products</span>
+        Add New <span className="text-slate-100 font-medium">Products</span>
       </h1>
       <p className="mt-7">Product Images</p>
 
@@ -96,7 +96,7 @@ export default function StoreAddProduct() {
             <Image
               width={300}
               height={300}
-              className="h-15 w-auto border border-slate-200 rounded cursor-pointer"
+              className="h-15 w-auto border border-slate-700 rounded cursor-pointer"
               src={
                 images[key]
                   ? URL.createObjectURL(images[key])
@@ -125,7 +125,7 @@ export default function StoreAddProduct() {
           onChange={onChangeHandler}
           value={productInfo.name}
           placeholder="Enter product name"
-          className="w-full max-w-sm p-2 px-4 outline-none border border-slate-200 rounded"
+          className="w-full max-w-sm p-2 px-4 outline-none border border-slate-700 bg-slate-800 text-slate-100 placeholder-slate-500 rounded"
           required
         />
       </label>
@@ -138,7 +138,7 @@ export default function StoreAddProduct() {
           value={productInfo.description}
           placeholder="Enter product description"
           rows={5}
-          className="w-full max-w-sm p-2 px-4 outline-none border border-slate-200 rounded resize-none"
+          className="w-full max-w-sm p-2 px-4 outline-none border border-slate-700 bg-slate-800 text-slate-100 placeholder-slate-500 rounded resize-none"
           required
         />
       </label>
@@ -152,7 +152,7 @@ export default function StoreAddProduct() {
             onChange={onChangeHandler}
             value={productInfo.mrp}
             placeholder="0"
-            className="w-full max-w-45 p-2 px-4 outline-none border border-slate-200 rounded"
+            className="w-full max-w-45 p-2 px-4 outline-none border border-slate-700 bg-slate-800 text-slate-100 placeholder-slate-500 rounded"
             required
           />
         </label>
@@ -164,7 +164,7 @@ export default function StoreAddProduct() {
             onChange={onChangeHandler}
             value={productInfo.price}
             placeholder="0"
-            className="w-full max-w-45 p-2 px-4 outline-none border border-slate-200 rounded"
+            className="w-full max-w-45 p-2 px-4 outline-none border border-slate-700 bg-slate-800 text-slate-100 placeholder-slate-500 rounded"
             required
           />
         </label>
@@ -175,7 +175,7 @@ export default function StoreAddProduct() {
           setProductInfo({ ...productInfo, category: e.target.value })
         }
         value={productInfo.category}
-        className="w-full max-w-sm p-2 px-4 my-6 outline-none border border-slate-200 rounded"
+        className="w-full max-w-sm p-2 px-4 my-6 outline-none border border-slate-700 bg-slate-800 text-slate-100 placeholder-slate-500 rounded"
         required
       >
         <option value="">Select a category</option>
@@ -190,7 +190,7 @@ export default function StoreAddProduct() {
 
       <button
         disabled={loading}
-        className="bg-slate-800 text-white px-6 mt-7 py-2 hover:bg-slate-900 rounded transition"
+        className="bg-slate-800 text-white px-6 mt-7 py-2 hover:bg-slate-700 rounded transition"
       >
         Add Product
       </button>

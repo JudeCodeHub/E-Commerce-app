@@ -16,30 +16,30 @@ const StoreInfo = ({ store }) => {
         />
       ) : (
         // Fallback if no logo
-        <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center shadow max-sm:mx-auto text-xs text-slate-400">
+        <div className="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center shadow max-sm:mx-auto text-xs text-slate-400">
           No Logo
         </div>
       )}
 
       <div className="flex flex-col sm:flex-row gap-3 items-center">
-        <h3 className="text-xl font-semibold text-slate-800"> {store.name} </h3>
+        <h3 className="text-xl font-semibold text-slate-100"> {store.name} </h3>
         <span className="text-sm">@{store.username}</span>
 
         {/* Status Badge */}
         <span
           className={`text-xs font-semibold px-4 py-1 rounded-full ${
             store.status === "pending"
-              ? "bg-yellow-100 text-yellow-800"
+              ? "bg-yellow-500/20 text-yellow-300"
               : store.status === "rejected"
-              ? "bg-red-100 text-red-800"
-              : "bg-amber-100 text-amber-800"
+              ? "bg-red-500/20 text-red-300"
+              : "bg-amber-500/20 text-amber-300"
           }`}
         >
           {store.status}
         </span>
       </div>
 
-      <p className="text-slate-600 my-5 max-w-2xl">{store.description}</p>
+      <p className="text-slate-300 my-5 max-w-2xl">{store.description}</p>
       <p className="flex items-center gap-2">
         {" "}
         <MapPin size={16} /> {store.address}
@@ -50,7 +50,7 @@ const StoreInfo = ({ store }) => {
       <p className="flex items-center gap-2">
         <Mail size={16} /> {store.email}
       </p>
-      <p className="text-slate-700 mt-5">
+      <p className="text-slate-300 mt-5">
         Applied on{" "}
         <span className="text-xs">
           {new Date(store.createdAt).toLocaleDateString()}
@@ -70,13 +70,13 @@ const StoreInfo = ({ store }) => {
           />
         ) : (
           // Fallback if no user image
-          <div className="w-9 h-9 bg-slate-200 rounded-full flex items-center justify-center">
-            <User size={16} className="text-slate-500" />
+          <div className="w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center">
+            <User size={16} className="text-slate-400" />
           </div>
         )}
 
         <div>
-          <p className="text-slate-600 font-medium">{store.user.name}</p>
+          <p className="text-slate-200 font-medium">{store.user.name}</p>
           <p className="text-slate-400">{store.user.email}</p>
         </div>
       </div>

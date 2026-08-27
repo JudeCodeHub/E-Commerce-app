@@ -29,14 +29,14 @@ const Hero = () => {
                     <Image className='sm:absolute sm:top-1/2 sm:-translate-y-[58%] sm:-right-14 md:-right-2 w-full max-w-80 sm:max-w-105 mx-auto sm:mx-0 ' src={assets.hero_model_img} alt="" />
                 </div>
                 <div className='flex flex-col md:flex-row xl:flex-col gap-5 w-full xl:max-w-sm text-sm text-slate-600'>
-                    <div className='flex-1 flex items-center justify-between w-full bg-green-500 rounded-3xl p-6 px-8 group'>
+                    <div className='flex-1 flex items-center justify-between w-full bg-[#ff0000] rounded-3xl p-6 px-8 group'>
                         <div>
                             <p className='text-3xl font-medium text-white max-w-40'>Best products</p>
                             <p className='flex items-center gap-1 mt-4 text-white/85'>View more <ArrowRightIcon className='group-hover:ml-2 transition-all' size={18} /> </p>
                         </div>
                         <Image className='w-35' src={assets.hero_product_img1} alt="" />
                     </div>
-                    <div className='flex-1 flex items-center justify-between w-full bg-[#232257] rounded-3xl p-6 px-8 group'>
+                    <div className='flex-1 flex items-center justify-between w-full bg-[#1876ff] rounded-3xl p-6 px-8 group'>
                         <div>
                             <p className='text-3xl font-medium text-white max-w-40'>20% discounts</p>
                             <p className='flex items-center gap-1 mt-4 text-white/85'>View more <ArrowRightIcon className='group-hover:ml-2 transition-all' size={18} /> </p>

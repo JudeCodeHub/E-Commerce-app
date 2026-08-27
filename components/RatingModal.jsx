@@ -47,15 +47,15 @@ const RatingModal = ({ ratingModal, setRatingModal }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-120 flex items-center justify-center bg-black/10">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96 relative">
+    <div className="fixed inset-0 z-120 flex items-center justify-center bg-black/60">
+      <div className="bg-slate-900 border border-slate-700 p-8 rounded-lg shadow-lg w-96 relative">
         <button
           onClick={() => setRatingModal(null)}
-          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+          className="absolute top-3 right-3 text-slate-400 hover:text-slate-200"
         >
           <XIcon size={20} />
         </button>
-        <h2 className="text-xl font-medium text-slate-600 mb-4">
+        <h2 className="text-xl font-medium text-slate-100 mb-4">
           Rate Product
         </h2>
         <div className="flex items-center justify-center mb-4">
@@ -63,14 +63,14 @@ const RatingModal = ({ ratingModal, setRatingModal }) => {
             <Star
               key={i}
               className={`size-8 cursor-pointer ${
-                rating > i ? "text-amber-400 fill-current" : "text-gray-300"
+                rating > i ? "text-amber-400 fill-current" : "text-slate-700"
               }`}
               onClick={() => setRating(i + 1)}
             />
           ))}
         </div>
         <textarea
-          className="w-full p-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-amber-400"
+          className="w-full p-2 border border-slate-700 bg-slate-800 text-slate-100 placeholder-slate-500 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-amber-400"
           placeholder="Write your review (optional)"
           rows="4"
           value={review}

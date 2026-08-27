@@ -73,26 +73,26 @@ export default function Dashboard() {
   if (loading) return <Loading />;
 
   return (
-    <div className=" text-slate-500 mb-28">
+    <div className=" text-slate-400 mb-28">
       <h1 className="text-2xl">
-        Seller <span className="text-slate-800 font-medium">Dashboard</span>
+        Seller <span className="text-slate-100 font-medium">Dashboard</span>
       </h1>
 
       <div className="flex flex-wrap gap-5 my-10 mt-4">
         {dashboardCardsData.map((card, index) => (
           <div
             key={index}
-            className="flex items-center gap-11 border border-slate-200 p-3 px-6 rounded-lg"
+            className="flex items-center gap-11 border border-slate-800 p-3 px-6 rounded-lg"
           >
             <div className="flex flex-col gap-3 text-xs">
               <p>{card.title}</p>
-              <b className="text-2xl font-medium text-slate-700">
+              <b className="text-2xl font-medium text-slate-100">
                 {card.value}
               </b>
             </div>
             <card.icon
               size={50}
-              className=" w-11 h-11 p-2.5 text-slate-400 bg-slate-100 rounded-full"
+              className=" w-11 h-11 p-2.5 text-slate-400 bg-slate-800 rounded-full"
             />
           </div>
         ))}
@@ -104,7 +104,7 @@ export default function Dashboard() {
         {dashboardData.ratings.map((review, index) => (
           <div
             key={index}
-            className="flex max-sm:flex-col gap-5 sm:items-center justify-between py-6 border-b border-slate-200 text-sm text-slate-600 max-w-4xl"
+            className="flex max-sm:flex-col gap-5 sm:items-center justify-between py-6 border-b border-slate-800 text-sm text-slate-300 max-w-4xl"
           >
             <div>
               <div className="flex gap-3">
@@ -117,12 +117,12 @@ export default function Dashboard() {
                 />
                 <div>
                   <p className="font-medium">{review.user.name}</p>
-                  <p className="font-light text-slate-500">
+                  <p className="font-light text-slate-400">
                     {new Date(review.createdAt).toDateString()}
                   </p>
                 </div>
               </div>
-              <p className="mt-3 text-slate-500 max-w-xs leading-6">
+              <p className="mt-3 text-slate-400 max-w-xs leading-6">
                 {review.review}
               </p>
             </div>
@@ -147,7 +147,7 @@ export default function Dashboard() {
               </div>
               <button
                 onClick={() => router.push(`/product/${review.product.id}`)}
-                className="bg-slate-100 px-5 py-2 hover:bg-slate-200 rounded transition-all"
+                className="bg-slate-800 text-slate-100 px-5 py-2 hover:bg-slate-700 rounded transition-all"
               >
                 View Product
               </button>

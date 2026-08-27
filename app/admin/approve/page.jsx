@@ -58,9 +58,9 @@ export default function AdminApprove() {
   }, [user]);
 
   return !loading ? (
-    <div className="text-slate-500 mb-28">
+    <div className="text-slate-400 mb-28">
       <h1 className="text-2xl">
-        Approve <span className="text-slate-800 font-medium">Stores</span>
+        Approve <span className="text-slate-100 font-medium">Stores</span>
       </h1>
 
       {stores.length ? (
@@ -68,7 +68,7 @@ export default function AdminApprove() {
           {stores.map((store) => (
             <div
               key={store.id}
-              className="bg-white border rounded-lg shadow-sm p-6 flex max-md:flex-col gap-4 md:items-end max-w-4xl"
+              className="bg-slate-900 border border-slate-800 rounded-lg shadow-sm p-6 flex max-md:flex-col gap-4 md:items-end max-w-4xl"
             >
               {/* Store Info */}
               <StoreInfo store={store} />

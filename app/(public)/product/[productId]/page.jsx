@@ -27,7 +27,7 @@ export default function Product() {
             <div className="max-w-7xl mx-auto">
 
                 {/* Breadcrums */}
-                <div className="  text-gray-600 text-sm mt-8 mb-5">
+                <div className="  text-slate-400 text-sm mt-8 mb-5">
                     Home / Products / {product?.category}
                 </div>
 

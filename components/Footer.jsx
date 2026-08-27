@@ -47,17 +47,17 @@ const Footer = () => {
     ]
 
     return (
-        <footer className="mx-6 bg-white">
+        <footer className="mx-6 bg-neutral-950">
             <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col md:flex-row items-start justify-between gap-10 py-10 border-b border-slate-500/30 text-slate-500">
+                <div className="flex flex-col md:flex-row items-start justify-between gap-10 py-10 border-b border-slate-800 text-slate-400">
                     <div>
-                        <Link href="/" className="text-4xl font-semibold text-slate-700">
+                        <Link href="/" className="text-4xl font-semibold text-slate-100">
                             <span className="text-amber-600">go</span>cart<span className="text-amber-600 text-5xl leading-0">.</span>
                         </Link>
                         <p className="max-w-[410px] mt-6 text-sm">Welcome to NexBuy, your ultimate destination for the latest and smartest gadgets. From smartphones and smartwatches to essential accessories, we bring you the best in innovation — all in one place.</p>
                         <div className="flex items-center gap-3 mt-5">
                             {socialIcons.map((item, i) => (
-                                <Link href={item.link} key={i} className="flex items-center justify-center w-10 h-10 bg-slate-100 hover:scale-105 hover:border border-slate-300 transition rounded-full">
+                                <Link href={item.link} key={i} className="flex items-center justify-center w-10 h-10 bg-slate-800 hover:scale-105 hover:border border-slate-700 transition rounded-full">
                                     <item.icon />
                                 </Link>
                             ))}
@@ -66,7 +66,7 @@ const Footer = () => {
                     <div className="flex flex-wrap justify-between w-full md:w-[45%] gap-5 text-sm ">
                         {linkSections.map((section, index) => (
                             <div key={index}>
-                                <h3 className="font-medium text-slate-700 md:mb-5 mb-3">{section.title}</h3>
+                                <h3 className="font-medium text-slate-100 md:mb-5 mb-3">{section.title}</h3>
                                 <ul className="space-y-2.5">
                                     {section.links.map((link, i) => (
                                         <li key={i} className="flex items-center gap-2">

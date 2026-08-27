@@ -9,10 +9,10 @@ const ProductDescription = ({ product }) => {
     const [selectedTab, setSelectedTab] = useState('Description')
 
     return (
-        <div className="my-18 text-sm text-slate-600">
+        <div className="my-18 text-sm text-slate-300">
 
             {/* Tabs */}
-            <div className="flex border-b border-slate-200 mb-6 max-w-2xl">
+            <div className="flex border-b border-slate-800 mb-6 max-w-2xl">
                 {['Description', 'Reviews'].map((tab, index) => (
                     <button className={`${tab === selectedTab ? 'border-b-[1.5px] font-semibold' : 'text-slate-400'} px-3 py-2 font-medium`} key={index} onClick={() => setSelectedTab(tab)}>
                         {tab}
@@ -38,7 +38,7 @@ const ProductDescription = ({ product }) => {
                                     ))}
                                 </div>
                                 <p className="text-sm max-w-lg my-4">{item.review}</p>
-                                <p className="font-medium text-slate-800">{item.user.name}</p>
+                                <p className="font-medium text-slate-100">{item.user.name}</p>
                                 <p className="mt-3 font-light">{new Date(item.createdAt).toDateString()}</p>
                             </div>
                         </div>
@@ -57,13 +57,13 @@ const ProductDescription = ({ product }) => {
                         height={100} 
                     />
                 ) : (
-                    <div className="size-11 rounded-full ring ring-slate-400 flex items-center justify-center bg-slate-100">
-                        <Store className="text-slate-500" size={24} />
+                    <div className="size-11 rounded-full ring ring-slate-400 flex items-center justify-center bg-slate-800">
+                        <Store className="text-slate-400" size={24} />
                     </div>
                 )}
-               
+
                 <div>
-                    <p className="font-medium text-slate-600">Product by {product.store.name}</p>
+                    <p className="font-medium text-slate-300">Product by {product.store.name}</p>
                     <Link href={`/shop/${product.store.username}`} className="flex items-center gap-1.5 text-amber-500"> view store <ArrowRight size={14} /></Link>
                 </div>
             </div>

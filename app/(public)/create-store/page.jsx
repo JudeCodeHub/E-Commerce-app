@@ -107,7 +107,7 @@ export default function CreateStore() {
     return (
       <div className="min-h-[80vh] mx-6 flex items-center justify-center text-slate-400">
         <h1 className="text-2xl sm:text-4xl font-semibold">
-          Please <span className="text-slate-500">login</span> to continue..
+          Please <span className="text-slate-200">login</span> to continue..
         </h1>
       </div>
     );
@@ -123,13 +123,13 @@ export default function CreateStore() {
                 loading: "Submitting data...",
               })
             }
-            className="max-w-7xl mx-auto flex flex-col items-start gap-3 text-slate-500"
+            className="max-w-7xl mx-auto flex flex-col items-start gap-3 text-slate-400"
           >
             {/* Title */}
             <div>
               <h1 className="text-3xl ">
                 Add Your{" "}
-                <span className="text-slate-800 font-medium">Store</span>
+                <span className="text-slate-100 font-medium">Store</span>
               </h1>
               <p className="max-w-lg">
                 To become a seller on NexBuy, submit your store details for
@@ -167,7 +167,7 @@ export default function CreateStore() {
               value={storeInfo.username}
               type="text"
               placeholder="Enter your store username"
-              className="border border-slate-300 outline-slate-400 w-full max-w-lg p-2 rounded"
+              className="border border-slate-700 bg-slate-800 text-slate-100 outline-slate-500 w-full max-w-lg p-2 rounded"
             />
 
             <p>Name</p>
@@ -177,7 +177,7 @@ export default function CreateStore() {
               value={storeInfo.name}
               type="text"
               placeholder="Enter your store name"
-              className="border border-slate-300 outline-slate-400 w-full max-w-lg p-2 rounded"
+              className="border border-slate-700 bg-slate-800 text-slate-100 outline-slate-500 w-full max-w-lg p-2 rounded"
             />
 
             <p>Description</p>
@@ -187,7 +187,7 @@ export default function CreateStore() {
               value={storeInfo.description}
               rows={5}
               placeholder="Enter your store description"
-              className="border border-slate-300 outline-slate-400 w-full max-w-lg p-2 rounded resize-none"
+              className="border border-slate-700 bg-slate-800 text-slate-100 outline-slate-500 w-full max-w-lg p-2 rounded resize-none"
             />
 
             <p>Email</p>
@@ -197,7 +197,7 @@ export default function CreateStore() {
               value={storeInfo.email}
               type="email"
               placeholder="Enter your store email"
-              className="border border-slate-300 outline-slate-400 w-full max-w-lg p-2 rounded"
+              className="border border-slate-700 bg-slate-800 text-slate-100 outline-slate-500 w-full max-w-lg p-2 rounded"
             />
 
             <p>Contact Number</p>
@@ -207,7 +207,7 @@ export default function CreateStore() {
               value={storeInfo.contact}
               type="text"
               placeholder="Enter your store contact number"
-              className="border border-slate-300 outline-slate-400 w-full max-w-lg p-2 rounded"
+              className="border border-slate-700 bg-slate-800 text-slate-100 outline-slate-500 w-full max-w-lg p-2 rounded"
             />
 
             <p>Address</p>
@@ -217,17 +217,17 @@ export default function CreateStore() {
               value={storeInfo.address}
               rows={5}
               placeholder="Enter your store address"
-              className="border border-slate-300 outline-slate-400 w-full max-w-lg p-2 rounded resize-none"
+              className="border border-slate-700 bg-slate-800 text-slate-100 outline-slate-500 w-full max-w-lg p-2 rounded resize-none"
             />
 
-            <button className="bg-slate-800 text-white px-12 py-2 rounded mt-10 mb-40 active:scale-95 hover:bg-slate-900 transition ">
+            <button className="bg-slate-800 text-white px-12 py-2 rounded mt-10 mb-40 active:scale-95 hover:bg-slate-700 transition ">
               Submit
             </button>
           </form>
         </div>
       ) : (
         <div className="min-h-[80vh] flex flex-col items-center justify-center">
-          <p className="sm:text-2xl lg:text-3xl mx-5 font-semibold text-slate-500 text-center max-w-2xl">
+          <p className="sm:text-2xl lg:text-3xl mx-5 font-semibold text-slate-200 text-center max-w-2xl">
             {message}
           </p>
           {status === "approved" && (
