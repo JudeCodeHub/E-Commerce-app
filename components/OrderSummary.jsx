@@ -60,6 +60,10 @@ const OrderSummary = ({ totalPrice, items }) => {
             return toast("Please select an address")
         }
 
+        if(!items || items.length === 0) {
+            return toast("Please select at least one item")
+        }
+
         const token = await getToken()
 
         const orderData = {

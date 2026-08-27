@@ -5,7 +5,7 @@ import PageTitle from "@/components/PageTitle";
 import { deleteItemFromCart } from "@/lib/features/cart/cartSlice";
 import { Trash2Icon } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Cart() {
@@ -18,10 +18,9 @@ export default function Cart() {
     const dispatch = useDispatch();
 
     const [cartArray, setCartArray] = useState([]);
-    const [totalPrice, setTotalPrice] = useState(0);
+    const [selectedIds, setSelectedIds] = useState(new Set());
 
     const createCartArray = () => {
-        setTotalPrice(0);
         const cartArray = [];
         for (const [key, value] of Object.entries(cartItems)) {
             const product = products.find(product => product.id === key);
@@ -30,7 +29,6 @@ export default function Cart() {
                     ...product,
                     quantity: value,
                 });
-                setTotalPrice(prev => prev + product.price * value);
             }
         }
         setCartArray(cartArray);
@@ -40,24 +38,58 @@ export default function Cart() {
         dispatch(deleteItemFromCart({ productId }))
     }
 
+    const toggleSelectItem = (productId) => {
+        setSelectedIds(prev => {
+            const next = new Set(prev);
+            if (next.has(productId)) {
+                next.delete(productId);
+            } else {
+                next.add(productId);
+            }
+            return next;
+        });
+    }
+
+    const selectedCartArray = cartArray.filter(item => selectedIds.has(item.id));
+    const selectedTotalPrice = selectedCartArray.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
     useEffect(() => {
         if (products.length > 0) {
             createCartArray();
         }
     }, [cartItems, products]);
 
+    const prevCartIdsRef = useRef(new Set());
+
+    useEffect(() => {
+        const currentIds = new Set(cartArray.map(item => item.id));
+        setSelectedIds(prev => {
+            const next = new Set();
+            for (const id of currentIds) {
+                if (prevCartIdsRef.current.has(id)) {
+                    if (prev.has(id)) next.add(id);
+                } else {
+                    next.add(id);
+                }
+            }
+            return next;
+        });
+        prevCartIdsRef.current = currentIds;
+    }, [cartArray]);
+
     return cartArray.length > 0 ? (
         <div className="min-h-screen mx-6 text-slate-100">
 
             <div className="max-w-7xl mx-auto ">
                 {/* Title */}
-                <PageTitle heading="My Cart" text="items in your cart" linkText="Add more" />
+                <PageTitle heading="My Cart" text="items in your cart" linkText="Add more" path="/shop" />
 
                 <div className="flex items-start justify-between gap-5 max-lg:flex-col">
 
                     <table className="w-full max-w-4xl text-slate-300 table-auto">
                         <thead>
                             <tr className="max-sm:text-sm">
+                                <th className="w-8"></th>
                                 <th className="text-left">Product</th>
                                 <th>Quantity</th>
                                 <th>Total Price</th>
@@ -67,7 +99,15 @@ export default function Cart() {
                         <tbody>
                             {
                                 cartArray.map((item, index) => (
-                                    <tr key={index} className="space-x-2">
+                                    <tr key={index} className={`space-x-2 ${!selectedIds.has(item.id) ? 'opacity-50' : ''}`}>
+                                        <td className="text-center align-middle">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedIds.has(item.id)}
+                                                onChange={() => toggleSelectItem(item.id)}
+                                                className="accent-amber-500 size-4 cursor-pointer"
+                                            />
+                                        </td>
                                         <td className="flex gap-3 my-4">
                                             <div className="flex gap-3 items-center justify-center bg-slate-100 size-18 rounded-md">
                                                 <Image src={item.images[0]} className="h-14 w-auto" alt="" width={45} height={45} />
@@ -92,7 +132,7 @@ export default function Cart() {
                             }
                         </tbody>
                     </table>
-                    <OrderSummary totalPrice={totalPrice} items={cartArray} />
+                    <OrderSummary totalPrice={selectedTotalPrice} items={selectedCartArray} />
                 </div>
             </div>
         </div>
