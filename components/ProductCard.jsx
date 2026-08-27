@@ -44,7 +44,7 @@ const ProductCard = ({ product }) => {
     }
 
     return (
-        <Link href={`/product/${product.id}`} className='group max-xl:mx-auto block w-full sm:w-60 bg-slate-900 border border-slate-800 rounded-2xl p-3 hover:border-slate-700 transition'>
+        <Link href={`/product/${product.id}`} className='group max-xl:mx-auto shrink-0 block w-full sm:w-60 bg-slate-900 border border-slate-800 rounded-2xl p-3 hover:border-slate-700 transition'>
             <div className='relative bg-[#F5F5F5] h-40 sm:h-60 rounded-xl flex items-center justify-center overflow-hidden'>
                 {isBestSeller && (
                     <span className='absolute top-3 left-3 bg-white/90 text-slate-800 text-[11px] font-medium px-3 py-1 rounded-full'>Best Seller</span>
@@ -52,7 +52,7 @@ const ProductCard = ({ product }) => {
                 <button onClick={toggleLike} className='absolute top-3 right-3 bg-white/90 size-7 rounded-full flex items-center justify-center'>
                     <HeartIcon size={14} className={liked ? 'text-red-500' : 'text-slate-400'} fill={liked ? '#EF4444' : 'none'} />
                 </button>
-                <Image width={500} height={500} className='max-h-30 sm:max-h-40 w-auto group-hover:scale-110 transition duration-300' src={product.images[0]} alt="" />
+                <Image width={500} height={500} className='max-h-55 sm:max-h-100 w-auto group-hover:scale-110 transition duration-300' src={product.images[0]} alt="" />
             </div>
 
             {product.images.length > 1 && (

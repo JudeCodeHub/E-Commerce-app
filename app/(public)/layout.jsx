@@ -9,11 +9,13 @@ import { useUser, useAuth } from "@clerk/nextjs";
 import { fetchCart, uploadCart } from "@/lib/features/cart/cartSlice";
 import { fetchAddress } from "@/lib/features/address/addressSlice";
 import { fetchUserRatings } from "@/lib/features/rating/ratingSlice";
+import { usePathname } from "next/navigation";
 
 export default function PublicLayout({ children }) {
   const dispatch = useDispatch();
   const { user } = useUser();
   const { getToken } = useAuth();
+  const pathname = usePathname();
 
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -40,7 +42,7 @@ export default function PublicLayout({ children }) {
       <Banner />
       <Navbar />
       {children}
-      <Footer />
+      {pathname === "/" && <Footer />}
     </>
   );
 }

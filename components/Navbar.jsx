@@ -1,8 +1,7 @@
 "use client";
-import { PackageIcon, Search, ShoppingCart } from "lucide-react";
+import { House, PackageIcon, PackageSearch, ShoppingCart, StoreIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useUser, useClerk, UserButton, Protect } from "@clerk/nextjs";
 const Navbar = () => {
@@ -10,13 +9,7 @@ const Navbar = () => {
   const { openSignIn } = useClerk();
   const router = useRouter();
 
-  const [search, setSearch] = useState("");
   const cartCount = useSelector((state) => state.cart.total);
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    router.push(`/shop?search=${search}`);
-  };
 
   return (
     <nav className="relative bg-neutral-950">
@@ -37,25 +30,14 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden sm:flex items-center gap-4 lg:gap-8 text-slate-300 text-[17px]">
-            <Link href="/" className="hover:text-amber-500 transition-colors">Home</Link>
-            <Link href="/shop" className="hover:text-amber-500 transition-colors">Shop</Link>
-            <Link href="/" className="hover:text-amber-500 transition-colors">About</Link>
-            <Link href="/" className="hover:text-amber-500 transition-colors">Contact</Link>
-
-            <form
-              onSubmit={handleSearch}
-              className="hidden xl:flex items-center w-xs text-sm gap-2 bg-slate-800 px-4 py-3 rounded-full"
-            >
-              <Search size={18} className="text-slate-400" />
-              <input
-                className="w-full bg-transparent outline-none placeholder-slate-500"
-                type="text"
-                placeholder="Search products"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                required
-              />
-            </form>
+            <Link href="/" className="flex items-center gap-2 hover:text-amber-500 transition-colors">
+              <House size={18} />
+              Home
+            </Link>
+            <Link href="/shop" className="flex items-center gap-2 hover:text-amber-500 transition-colors">
+              <PackageSearch size={18} />
+              Shop
+            </Link>
 
             <Link
               href="/cart"
@@ -66,6 +48,13 @@ const Navbar = () => {
               <button className="absolute -top-1 left-3 text-[8px] text-white bg-slate-600 size-3.5 rounded-full">
                 {cartCount}
               </button>
+            </Link>
+
+            <Link
+              href="/create-store"
+              className="border border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-white transition px-4 py-1.5 rounded-full text-sm"
+            >
+              Sell on NexBuy
             </Link>
 
             {!user ? (
@@ -102,6 +91,11 @@ const Navbar = () => {
                     labelIcon={<PackageIcon size={16} />}
                     label="My Orders"
                     onClick={() => router.push("/orders")}
+                  />
+                  <UserButton.Action
+                    labelIcon={<StoreIcon size={16} />}
+                    label="Sell on NexBuy"
+                    onClick={() => router.push("/create-store")}
                   />
                 </UserButton.MenuItems>
               </UserButton>
