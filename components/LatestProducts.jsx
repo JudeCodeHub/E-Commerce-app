@@ -2,11 +2,13 @@
 import React from "react";
 import Title from "./Title";
 import ProductCard from "./ProductCard";
+import Loading from "./Loading";
 import { useSelector } from "react-redux";
 
 const LatestProducts = () => {
   const displayQuantity = 5;
   const allProducts = useSelector((state) => state.product.list );
+  const loading = useSelector((state) => state.product.loading);
   const products = allProducts.filter((product) => product.featured);
 
   return (
@@ -18,15 +20,19 @@ const LatestProducts = () => {
         } of ${products.length} products`}
         href="/shop"
       />
-      <div className="mt-12 grid grid-cols-2 sm:flex flex-wrap justify-center gap-6">
-        {products
-          .slice()
-          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-          .slice(0, displayQuantity)
-          .map((product, index) => (
-            <ProductCard key={index} product={product} />
-          ))}
-      </div>
+      {loading ? (
+        <Loading fullScreen={false} />
+      ) : (
+        <div className="mt-12 grid grid-cols-2 sm:flex flex-wrap justify-center gap-6">
+          {products
+            .slice()
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .slice(0, displayQuantity)
+            .map((product, index) => (
+              <ProductCard key={index} product={product} />
+            ))}
+        </div>
+      )}
     </div>
   );
 };
