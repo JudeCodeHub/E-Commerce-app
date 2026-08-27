@@ -64,7 +64,7 @@ const ProductDescription = ({ product }) => {
                
                 <div>
                     <p className="font-medium text-slate-600">Product by {product.store.name}</p>
-                    <Link href={`/shop/${product.store.username}`} className="flex items-center gap-1.5 text-green-500"> view store <ArrowRight size={14} /></Link>
+                    <Link href={`/shop/${product.store.username}`} className="flex items-center gap-1.5 text-amber-500"> view store <ArrowRight size={14} /></Link>
                 </div>
             </div>
         </div>

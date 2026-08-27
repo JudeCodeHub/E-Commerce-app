@@ -105,7 +105,7 @@ export default function StoreOrders() {
                   className="hover:bg-gray-50 transition-colors duration-150 cursor-pointer"
                   onClick={() => openModal(order)}
                 >
-                  <td className="pl-6 text-green-600">{index + 1}</td>
+                  <td className="pl-6 text-amber-600">{index + 1}</td>
                   <td className="px-4 py-3">{order.user?.name}</td>
                   <td className="px-4 py-3 font-medium text-slate-800">
                     ${order.total}
@@ -113,7 +113,7 @@ export default function StoreOrders() {
                   <td className="px-4 py-3">{order.paymentMethod}</td>
                   <td className="px-4 py-3">
                     {order.isCouponUsed ? (
-                      <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">
+                      <span className="bg-amber-100 text-amber-700 text-xs px-2 py-1 rounded-full">
                         {order.coupon?.code}
                       </span>
                     ) : (
@@ -167,19 +167,19 @@ export default function StoreOrders() {
             <div className="mb-4">
               <h3 className="font-semibold mb-2">Customer Details</h3>
               <p>
-                <span className="text-green-700">Name:</span>{" "}
+                <span className="text-amber-700">Name:</span>{" "}
                 {selectedOrder.user?.name}
               </p>
               <p>
-                <span className="text-green-700">Email:</span>{" "}
+                <span className="text-amber-700">Email:</span>{" "}
                 {selectedOrder.user?.email}
               </p>
               <p>
-                <span className="text-green-700">Phone:</span>{" "}
+                <span className="text-amber-700">Phone:</span>{" "}
                 {selectedOrder.address?.phone}
               </p>
               <p>
-                <span className="text-green-700">Address:</span>{" "}
+                <span className="text-amber-700">Address:</span>{" "}
                 {`${selectedOrder.address?.street}, ${selectedOrder.address?.city}, ${selectedOrder.address?.state}, ${selectedOrder.address?.zip}, ${selectedOrder.address?.country}`}
               </p>
             </div>
@@ -213,26 +213,26 @@ export default function StoreOrders() {
             {/* Payment & Status */}
             <div className="mb-4">
               <p>
-                <span className="text-green-700">Payment Method:</span>{" "}
+                <span className="text-amber-700">Payment Method:</span>{" "}
                 {selectedOrder.paymentMethod}
               </p>
               <p>
-                <span className="text-green-700">Paid:</span>{" "}
+                <span className="text-amber-700">Paid:</span>{" "}
                 {selectedOrder.isPaid ? "Yes" : "No"}
               </p>
               {selectedOrder.isCouponUsed && (
                 <p>
-                  <span className="text-green-700">Coupon:</span>{" "}
+                  <span className="text-amber-700">Coupon:</span>{" "}
                   {selectedOrder.coupon.code} ({selectedOrder.coupon.discount}%
                   off)
                 </p>
               )}
               <p>
-                <span className="text-green-700">Status:</span>{" "}
+                <span className="text-amber-700">Status:</span>{" "}
                 {selectedOrder.status}
               </p>
               <p>
-                <span className="text-green-700">Order Date:</span>{" "}
+                <span className="text-amber-700">Order Date:</span>{" "}
                 {new Date(selectedOrder.createdAt).toLocaleString()}
               </p>
             </div>

@@ -152,7 +152,7 @@ export default function AdminCoupons() {
                   setNewCoupon({ ...newCoupon, forNewUser: e.target.checked })
                 }
               />
-              <div className="w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-green-600 transition-colors duration-200"></div>
+              <div className="w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-amber-600 transition-colors duration-200"></div>
               <span className="dot absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
             </label>
             <p>For New User</p>
@@ -168,7 +168,7 @@ export default function AdminCoupons() {
                   setNewCoupon({ ...newCoupon, forMember: e.target.checked })
                 }
               />
-              <div className="w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-green-600 transition-colors duration-200"></div>
+              <div className="w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-amber-600 transition-colors duration-200"></div>
               <span className="dot absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
             </label>
             <p>For Member</p>
