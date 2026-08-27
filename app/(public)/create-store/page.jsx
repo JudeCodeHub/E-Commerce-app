@@ -132,7 +132,7 @@ export default function CreateStore() {
                 <span className="text-slate-800 font-medium">Store</span>
               </h1>
               <p className="max-w-lg">
-                To become a seller on GoCart, submit your store details for
+                To become a seller on NexBuy, submit your store details for
                 review. Your store will be activated after admin verification.
               </p>
             </div>

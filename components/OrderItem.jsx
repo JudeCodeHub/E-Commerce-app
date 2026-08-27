@@ -41,7 +41,7 @@ const OrderItem = ({ order }) => {
                                             ) : (
                                                 <button
                                                     onClick={() => setRatingModal({ orderId: order.id, productId: item.product.id })}
-                                                    className={`text-green-500 hover:bg-green-50 transition ${order.status !== "DELIVERED" && 'hidden'}`}
+                                                    className={`text-amber-500 hover:bg-amber-50 transition ${order.status !== "DELIVERED" && 'hidden'}`}
                                                 >
                                                     Rate Product
                                                 </button>
@@ -68,7 +68,7 @@ const OrderItem = ({ order }) => {
                         className={`flex items-center justify-center gap-1 rounded-full p-1 ${order.status === 'confirmed'
                             ? 'text-yellow-500 bg-yellow-100'
                             : order.status === 'delivered'
-                                ? 'text-green-500 bg-green-100'
+                                ? 'text-amber-500 bg-amber-100'
                                 : 'text-slate-500 bg-slate-100'
                             }`}
                     >
@@ -85,7 +85,7 @@ const OrderItem = ({ order }) => {
                     <p>{order.address.phone}</p>
                     <br />
                     <div className="flex items-center">
-                        <span className='text-center mx-auto px-6 py-1.5 rounded bg-green-100 text-green-700' >
+                        <span className='text-center mx-auto px-6 py-1.5 rounded bg-amber-100 text-amber-700' >
                             {order.status.replace(/_/g, ' ').toLowerCase()}
                         </span>
                     </div>

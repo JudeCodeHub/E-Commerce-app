@@ -48,7 +48,7 @@ const AdminSidebar = () => {
             <link.icon size={18} className="sm:ml-5" />
             <p className="max-sm:hidden">{link.name}</p>
             {pathname === link.href && (
-              <span className="absolute bg-green-500 right-0 top-1.5 bottom-1.5 w-1 sm:w-1.5 rounded-l"></span>
+              <span className="absolute bg-amber-500 right-0 top-1.5 bottom-1.5 w-1 sm:w-1.5 rounded-l"></span>
             )}
           </Link>
         ))}

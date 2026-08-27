@@ -1,6 +1,6 @@
 <div align="center">
-  <h1><img src="https://gocartshop.in/favicon.ico" width="20" height="20" alt="GoCart Favicon">
-   GoCart</h1>
+  <h1><img src="https://raw.githubusercontent.com/JudeCodeHub/E-Commerce-app/main/app/favicon.ico" width="20" height="20" alt="NexBuy Favicon">
+   NexBuy</h1>
   <p>
     An open-source multi-vendor e-commerce platform built with Next.js and Tailwind CSS.
   </p>
