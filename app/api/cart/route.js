@@ -1,17 +1,31 @@
-import { getAuth } from "@clerk/nextjs/server";
+import { getAuth, currentUser } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
+
+async function getUserProfileData() {
+  const clerkUser = await currentUser();
+  return {
+    email: clerkUser.emailAddresses[0].emailAddress,
+    name: `${clerkUser.firstName} ${clerkUser.lastName}`,
+    image: clerkUser.imageUrl,
+  };
+}
 
 export async function POST(request) {
   try {
     const { userId } = getAuth(request);
     const { cart } = await request.json();
 
-    await prisma.user.update({
+    await prisma.user.upsert({
       where: {
         id: userId,
       },
-      data: {
+      update: {
+        cart: cart,
+      },
+      create: {
+        id: userId,
+        ...(await getUserProfileData()),
         cart: cart,
       },
     });
@@ -35,11 +49,21 @@ export async function POST(request) {
 export async function GET(request) {
   try {
     const { userId } = getAuth(request);
-    const user = await prisma.user.findUnique({
+    let user = await prisma.user.findUnique({
       where: {
         id: userId,
       },
     });
+
+    if (!user) {
+      user = await prisma.user.create({
+        data: {
+          id: userId,
+          ...(await getUserProfileData()),
+        },
+      });
+    }
+
     return NextResponse.json({
       cart: user.cart,
     });

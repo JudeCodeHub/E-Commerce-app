@@ -63,34 +63,35 @@ export default function AdminDashboard() {
   if (loading) return <Loading />;
 
   return (
-    <div className="text-slate-400">
-      <h1 className="text-2xl">
-        Admin <span className="text-slate-100 font-medium">Dashboard</span>
+    <div className="w-full">
+      <h1 className="text-2xl text-muted">
+        Admin <span className="text-white font-semibold">Dashboard</span>
       </h1>
 
       {/* Cards */}
-      <div className="flex flex-wrap gap-5 my-10 mt-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mt-6">
         {dashboardCardsData.map((card, index) => (
           <div
             key={index}
-            className="flex items-center gap-10 border border-slate-800 p-3 px-6 rounded-lg"
+            className="flex items-center gap-4 bg-panel border border-white/10 rounded-2xl p-5"
           >
-            <div className="flex flex-col gap-3 text-xs">
-              <p>{card.title}</p>
-              <b className="text-2xl font-medium text-slate-100">
+            <div className="size-12 rounded-xl bg-accent/15 text-accent flex items-center justify-center shrink-0">
+              <card.icon size={22} />
+            </div>
+            <div className="flex flex-col gap-1 min-w-0">
+              <p className="text-xs text-muted truncate">{card.title}</p>
+              <b className="text-2xl font-semibold text-white truncate">
                 {card.value}
               </b>
             </div>
-            <card.icon
-              size={50}
-              className=" w-11 h-11 p-2.5 text-slate-400 bg-slate-800 rounded-full"
-            />
           </div>
         ))}
       </div>
 
       {/* Area Chart */}
-      <OrdersAreaChart allOrders={dashboardData.allOrders} />
+      <div className="w-full bg-panel border border-white/10 rounded-2xl p-6 mt-6">
+        <OrdersAreaChart allOrders={dashboardData.allOrders} />
+      </div>
     </div>
   );
 }

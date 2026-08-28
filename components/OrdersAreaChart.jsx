@@ -17,15 +17,21 @@ export default function OrdersAreaChart({ allOrders }) {
     }))
 
     return (
-        <div className="w-full max-w-4xl h-[300px] text-xs">
-            <h3 className="text-lg font-medium text-slate-100 mb-4 pt-2 text-right"> <span className='text-slate-400'>Orders /</span> Day</h3>
-            <ResponsiveContainer width="100%" height="100%">
+        <div className="w-full h-[320px] text-xs">
+            <h3 className="text-lg font-medium text-white mb-4"><span className='text-muted'>Orders /</span> Day</h3>
+            <ResponsiveContainer width="100%" height="88%">
                 <AreaChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                    <XAxis dataKey="date" tick={{ fill: '#94a3b8' }} axisLine={{ stroke: '#334155' }} tickLine={{ stroke: '#334155' }} />
-                    <YAxis allowDecimals={false} tick={{ fill: '#94a3b8' }} axisLine={{ stroke: '#334155' }} tickLine={{ stroke: '#334155' }} label={{ value: 'Orders', angle: -90, position: 'insideLeft', fill: '#94a3b8' }} />
-                    <Tooltip contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #334155', color: '#f1f5f9' }} labelStyle={{ color: '#f1f5f9' }} itemStyle={{ color: '#f1f5f9' }} />
-                    <Area type="monotone" dataKey="orders" stroke="#4f46e5" fill="#8884d8" strokeWidth={2} />
+                    <defs>
+                        <linearGradient id="ordersFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#fbbd0c" stopOpacity={0.35} />
+                            <stop offset="95%" stopColor="#fbbd0c" stopOpacity={0} />
+                        </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
+                    <XAxis dataKey="date" tick={{ fill: '#94a3b8' }} axisLine={{ stroke: 'rgba(255,255,255,0.1)' }} tickLine={{ stroke: 'rgba(255,255,255,0.1)' }} />
+                    <YAxis allowDecimals={false} tick={{ fill: '#94a3b8' }} axisLine={{ stroke: 'rgba(255,255,255,0.1)' }} tickLine={{ stroke: 'rgba(255,255,255,0.1)' }} label={{ value: 'Orders', angle: -90, position: 'insideLeft', fill: '#94a3b8' }} />
+                    <Tooltip contentStyle={{ backgroundColor: '#131316', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, color: '#f1f5f9' }} labelStyle={{ color: '#f1f5f9' }} itemStyle={{ color: '#fbbd0c' }} />
+                    <Area type="monotone" dataKey="orders" stroke="#fbbd0c" fill="url(#ordersFill)" strokeWidth={2} />
                 </AreaChart>
             </ResponsiveContainer>
         </div>

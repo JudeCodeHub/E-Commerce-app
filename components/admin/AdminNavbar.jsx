@@ -6,16 +6,19 @@ const AdminNavbar = () => {
   const { user } = useUser();
 
   return (
-    <div className="flex items-center justify-between px-12 py-3 border-b border-slate-800 transition-all">
-      <Link href="/" className="relative text-4xl font-semibold text-slate-100">
-        <span className="text-amber-600">Nex</span>Buy
-        <span className="text-amber-600 text-5xl leading-0">.</span>
-        <p className="absolute text-xs font-semibold -top-1 -right-13 px-3 p-0.5 rounded-full flex items-center gap-2 text-white bg-amber-500">
+    <div className="flex items-center justify-between h-16 px-6 lg:px-8 border-b border-white/10 bg-panel">
+      <Link href="/" className="flex items-center gap-2.5">
+        <span className="text-2xl font-semibold text-white leading-none">
+          <span className="text-accent">Nex</span>Buy<span className="text-accent">.</span>
+        </span>
+        <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-accent/15 text-accent">
           Admin
-        </p>
+        </span>
       </Link>
       <div className="flex items-center gap-3">
-        <p>Hi, {user?.firstName}</p>
+        <p className="text-sm text-muted max-sm:hidden">
+          Hi, <span className="text-slate-200 font-medium">{user?.firstName}</span>
+        </p>
         <UserButton />
       </div>
     </div>

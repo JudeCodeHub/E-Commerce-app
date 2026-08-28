@@ -55,25 +55,25 @@ export default function AdminStores() {
   }, [user]);
 
   return !loading ? (
-    <div className="text-slate-400 mb-28">
-      <h1 className="text-2xl">
-        Live <span className="text-slate-100 font-medium">Stores</span>
+    <div className="w-full mb-20">
+      <h1 className="text-2xl text-muted">
+        Live <span className="text-white font-semibold">Stores</span>
       </h1>
 
       {stores.length ? (
-        <div className="flex flex-col gap-4 mt-4">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 mt-6">
           {stores.map((store) => (
             <div
               key={store.id}
-              className="bg-slate-900 border border-slate-800 rounded-lg shadow-sm p-6 flex max-md:flex-col gap-4 md:items-end max-w-4xl"
+              className="bg-panel border border-white/10 rounded-2xl p-6 flex flex-col gap-5"
             >
               {/* Store Info */}
               <StoreInfo store={store} />
 
               {/* Actions */}
-              <div className="flex items-center gap-3 pt-2 flex-wrap">
-                <p>Active</p>
-                <label className="relative inline-flex items-center cursor-pointer text-slate-200">
+              <div className="flex items-center gap-3 pt-3 border-t border-white/10 flex-wrap">
+                <p className="text-sm text-muted">Active</p>
+                <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
                     className="sr-only peer"
@@ -84,8 +84,8 @@ export default function AdminStores() {
                     }
                     checked={store.isActive}
                   />
-                  <div className="w-9 h-5 bg-slate-700 rounded-full peer peer-checked:bg-amber-600 transition-colors duration-200"></div>
-                  <span className="dot absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-4"></span>
+                  <div className="w-11 h-6 bg-white/10 rounded-full peer peer-checked:bg-accent transition-colors duration-200"></div>
+                  <span className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
                 </label>
               </div>
             </div>
@@ -93,7 +93,7 @@ export default function AdminStores() {
         </div>
       ) : (
         <div className="flex items-center justify-center h-80">
-          <h1 className="text-3xl text-slate-400 font-medium">
+          <h1 className="text-2xl text-muted font-medium">
             No stores Available
           </h1>
         </div>

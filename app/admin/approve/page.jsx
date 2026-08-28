@@ -58,23 +58,23 @@ export default function AdminApprove() {
   }, [user]);
 
   return !loading ? (
-    <div className="text-slate-400 mb-28">
-      <h1 className="text-2xl">
-        Approve <span className="text-slate-100 font-medium">Stores</span>
+    <div className="w-full mb-20">
+      <h1 className="text-2xl text-muted">
+        Approve <span className="text-white font-semibold">Stores</span>
       </h1>
 
       {stores.length ? (
-        <div className="flex flex-col gap-4 mt-4">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 mt-6">
           {stores.map((store) => (
             <div
               key={store.id}
-              className="bg-slate-900 border border-slate-800 rounded-lg shadow-sm p-6 flex max-md:flex-col gap-4 md:items-end max-w-4xl"
+              className="bg-panel border border-white/10 rounded-2xl p-6 flex flex-col gap-5"
             >
               {/* Store Info */}
               <StoreInfo store={store} />
 
               {/* Actions */}
-              <div className="flex gap-3 pt-2 flex-wrap">
+              <div className="flex gap-3 pt-3 border-t border-white/10 flex-wrap">
                 <button
                   onClick={() =>
                     toast.promise(
@@ -82,7 +82,7 @@ export default function AdminApprove() {
                       { loading: "approving" }
                     )
                   }
-                  className="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700 text-sm"
+                  className="px-5 py-2.5 bg-accent hover:bg-accent-hover text-slate-900 font-bold rounded-lg text-sm transition-all active:scale-[0.98]"
                 >
                   Approve
                 </button>
@@ -93,7 +93,7 @@ export default function AdminApprove() {
                       { loading: "rejecting" }
                     )
                   }
-                  className="px-4 py-2 bg-slate-500 text-white rounded hover:bg-slate-600 text-sm"
+                  className="px-5 py-2.5 border border-white/10 text-red-400 hover:bg-red-500/10 hover:border-red-500/30 rounded-lg text-sm font-medium transition-colors"
                 >
                   Reject
                 </button>
@@ -103,7 +103,7 @@ export default function AdminApprove() {
         </div>
       ) : (
         <div className="flex items-center justify-center h-80">
-          <h1 className="text-3xl text-slate-400 font-medium">
+          <h1 className="text-2xl text-muted font-medium">
             No Application Pending
           </h1>
         </div>
