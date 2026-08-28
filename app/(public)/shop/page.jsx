@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { MailIcon, MapPinIcon, Search, Store } from "lucide-react";
 import Image from "next/image";
 import axios from "axios";
@@ -10,12 +10,15 @@ import Loading from "@/components/Loading";
 
 function ShopContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const username = searchParams.get("username");
 
   const [products, setProducts] = useState([]);
   const [storeInfo, setStoreInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "");
+  const [selectedCategory, setSelectedCategory] = useState(searchParams.get("category") || "All");
 
   const fetchData = async () => {
     setLoading(true);
@@ -40,8 +43,24 @@ function ShopContent() {
     fetchData();
   }, [username]);
 
+  const categories = ["All", ...new Set(products.map((product) => product.category))].sort(
+    (a, b) => (a === "All" ? -1 : b === "All" ? 1 : a.localeCompare(b))
+  );
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    const params = new URLSearchParams(searchParams.toString());
+    if (category === "All") {
+      params.delete("category");
+    } else {
+      params.set("category", category);
+    }
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
   const filteredProducts = products
     .filter((product) => username || !product.featured)
+    .filter((product) => selectedCategory === "All" || product.category === selectedCategory)
     .filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   if (loading) return <Loading />;
@@ -87,20 +106,43 @@ function ShopContent() {
       )}
 
       {/* Products Grid */}
-      <div className="max-w-7xl mx-auto mb-40">
-        <div className="flex items-center gap-213 mt-12 mb-6 flex-wrap">
+      <div className="max-w-5xl mx-auto mb-40">
+        <div className="mt-12 mb-6">
           <h1 className="text-2xl">
             {username ? "Store" : "All"} <span className="text-slate-100 font-medium">Products</span>
           </h1>
-          <div className="flex items-center gap-2 bg-slate-800 border border-slate-700 px-4 py-2 rounded-full w-full sm:w-60">
-            <Search size={18} className="text-slate-400 shrink-0" />
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search products"
-              className="w-full bg-transparent outline-none text-sm text-slate-100 placeholder-slate-500"
-            />
+
+          <div className="flex items-center justify-between flex-wrap gap-4 mt-5">
+            {categories.length > 2 ? (
+              <div className="flex items-center gap-3 overflow-x-auto no-scrollbar pb-1">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => handleCategorySelect(category)}
+                    className={`shrink-0 px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                      selectedCategory === category
+                        ? "bg-accent text-slate-900 font-semibold shadow-md shadow-accent/30"
+                        : "bg-[#232257] border border-[#33306e] text-slate-300 hover:border-accent hover:text-accent"
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div />
+            )}
+
+            <div className="flex items-center gap-2 bg-slate-800 border border-slate-700 px-4 py-2 rounded-full w-full sm:w-60">
+              <Search size={18} className="text-slate-400 shrink-0" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search products"
+                className="w-full bg-transparent outline-none text-sm text-slate-100 placeholder-slate-500"
+              />
+            </div>
           </div>
         </div>
 
