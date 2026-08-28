@@ -45,9 +45,9 @@ const Navbar = () => {
             >
               <ShoppingCart size={18} />
               Cart
-              <button className="absolute -top-1 left-3 text-[8px] text-white bg-slate-600 size-3.5 rounded-full">
+              <span className="absolute -top-1 left-3 flex items-center justify-center text-[8px] text-white bg-slate-600 size-3.5 rounded-full">
                 {cartCount}
-              </button>
+              </span>
             </Link>
 
             <Link

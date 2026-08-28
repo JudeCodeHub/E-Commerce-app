@@ -29,14 +29,14 @@ const Hero = () => {
                     <Image className='sm:absolute sm:top-1/2 sm:-translate-y-[55%] sm:-right-6 md:right-4 w-full max-w-80 sm:max-w-105 mx-auto sm:mx-0 ' src={assets.hero_model_img} alt="" />
                 </div>
                 <div className='flex flex-col md:flex-row xl:flex-col gap-5 w-full xl:max-w-sm text-sm text-slate-600'>
-                    <div className='relative flex-1 flex items-center justify-between w-full h-36 bg-[#ff0000] rounded-3xl p-6 px-8 group'>
+                    <div className='relative flex-1 flex items-center justify-between w-full h-36 bg-[#ff0000] rounded-3xl p-6 px-8 group overflow-hidden'>
                         <div>
                             <p className='text-3xl font-medium text-white max-w-40'>Best products</p>
                             <p className='flex items-center gap-1 mt-4 text-white/85'>View more <ArrowRightIcon className='group-hover:ml-2 transition-all' size={18} /> </p>
                         </div>
                         <Image className='absolute right-1 top-1/2 -translate-y-[58%] w-70 group-hover:scale-105 transition duration-300' src={assets.hero_product_img1} alt="" />
                     </div>
-                    <div className='relative flex-1 flex items-center justify-between w-full h-36 bg-[#1876ff] rounded-3xl p-6 px-8 group'>
+                    <div className='relative flex-1 flex items-center justify-between w-full h-36 bg-[#1876ff] rounded-3xl p-6 px-8 group overflow-hidden'>
                         <div>
                             <p className='text-3xl font-medium text-white max-w-40'>20% discounts</p>
                             <p className='flex items-center gap-1 mt-4 text-white/85'>View more <ArrowRightIcon className='group-hover:ml-2 transition-all' size={18} /> </p>
