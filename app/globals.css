@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@theme {
+    --color-surface-light: #f4f5f7;
+    --color-accent: #fbbd0c;
+    --color-accent-hover: #f7ac1c;
+    --color-muted: #94a3b8;
+}
+
 html {
     color-scheme: dark;
 }

@@ -8,6 +8,12 @@ import Image from "next/image";
 import Counter from "./Counter";
 import { useDispatch, useSelector } from "react-redux";
 
+const trustPoints = [
+    { icon: EarthIcon, label: "Free shipping worldwide" },
+    { icon: CreditCardIcon, label: "100% Secured Payment" },
+    { icon: UserIcon, label: "Trusted by top brands" },
+];
+
 const ProductDetails = ({ product }) => {
 
     const productId = product.id;
@@ -28,56 +34,89 @@ const ProductDetails = ({ product }) => {
         ? product.rating.reduce((acc, item) => acc + item.rating, 0) / product.rating.length
         : 0;
 
+    const discountPercent = product.mrp > product.price
+        ? Math.round((product.mrp - product.price) / product.mrp * 100)
+        : 0;
+
     return (
-        <div className="flex max-lg:flex-col gap-12">
-            <div className="flex max-sm:flex-col-reverse gap-3">
-                <div className="flex sm:flex-col gap-3">
-                    {product.images.map((image, index) => (
-                        <div key={index} onClick={() => setMainImage(product.images[index])} className="bg-slate-100 flex items-center justify-center size-26 rounded-lg group cursor-pointer">
-                            <Image src={image} className="group-hover:scale-103 group-active:scale-95 transition" alt="" width={45} height={45} />
-                        </div>
-                    ))}
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+
+            {/* Image column */}
+            <div className="lg:w-[55%] flex flex-col items-center gap-4">
+                <div className="relative w-full max-w-[500px] aspect-square bg-surface-light rounded-2xl shadow-lg shadow-black/30 p-4 flex items-center justify-center overflow-hidden">
+                    <Image src={mainImage} alt={product.name} width={470} height={470} className="w-full h-full object-contain scale-[2.2] -ml-10" />
                 </div>
-                <div className="flex justify-center items-center h-100 sm:size-113 bg-slate-100 rounded-lg ">
-                    <Image src={mainImage} alt="" width={250} height={250} />
-                </div>
+
+                {product.images.length > 1 && (
+                    <div className="flex gap-3">
+                        {product.images.map((image, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setMainImage(image)}
+                                className={`size-10 shrink-0 rounded-lg bg-surface-light flex items-center justify-center overflow-hidden transition ${mainImage === image ? 'ring-2 ring-accent' : 'ring-1 ring-slate-700 hover:ring-slate-500'}`}
+                            >
+                                <Image src={image} alt="" width={60} height={60} className="w-full h-full object-contain scale-[1]" />
+                            </button>
+                        ))}
+                    </div>
+                )}
             </div>
-            <div className="flex-1">
-                <h1 className="text-3xl font-semibold text-slate-100">{product.name}</h1>
-                <div className='flex items-center mt-2'>
-                    {Array(5).fill('').map((_, index) => (
-                        <StarIcon key={index} size={14} className='text-transparent mt-0.5' fill={averageRating >= index + 1 ? "#00C950" : "#D1D5DB"} />
-                    ))}
-                    <p className="text-sm ml-3 text-slate-400">{product.rating.length} Reviews</p>
+
+            {/* Details column */}
+            <div className="flex-1 flex flex-col gap-6">
+                <div>
+                    <h1 className="text-3xl lg:text-[32px] font-bold text-white leading-tight">{product.name}</h1>
+                    <div className='flex items-center gap-2 mt-3'>
+                        <div className="flex">
+                            {Array(5).fill('').map((_, index) => (
+                                <StarIcon key={index} size={16} className='text-transparent' fill={averageRating >= index + 1 ? "#00C950" : "#14532D"} />
+                            ))}
+                        </div>
+                        <p className="text-sm text-muted">{product.rating.length} Reviews</p>
+                    </div>
                 </div>
-                <div className="flex items-start my-6 gap-3 text-2xl font-semibold text-slate-100">
-                    <p> {currency}{product.price} </p>
-                    <p className="text-xl text-slate-500 line-through">{currency}{product.mrp}</p>
+
+                <div className="flex items-end gap-3">
+                    <p className="text-3xl font-bold text-accent">{currency}{product.price}</p>
+                    {product.mrp > product.price && (
+                        <p className="text-base text-muted line-through mb-0.5">{currency}{product.mrp}</p>
+                    )}
                 </div>
-                <div className="flex items-center gap-2 text-slate-400">
-                    <TagIcon size={14} />
-                    <p>Save {((product.mrp - product.price) / product.mrp * 100).toFixed(0)}% right now</p>
-                </div>
-                <div className="flex items-end gap-5 mt-10">
+
+                {discountPercent > 0 && (
+                    <div className="inline-flex items-center gap-1.5 w-fit bg-accent/15 text-accent text-xs font-semibold px-3 py-1.5 rounded-full">
+                        <TagIcon size={14} />
+                        Save {discountPercent}% right now
+                    </div>
+                )}
+
+                <div className="flex items-end gap-4 mt-2">
                     {
                         cart[productId] && (
-                            <div className="flex flex-col gap-3">
-                                <p className="text-lg text-slate-100 font-semibold">Quantity</p>
+                            <div className="flex flex-col gap-2">
+                                <p className="text-sm text-muted font-medium">Quantity</p>
                                 <Counter productId={productId} />
                             </div>
                         )
                     }
-                    <button onClick={() => !cart[productId] ? addToCartHandler() : router.push('/cart')} className="bg-slate-800 text-white px-10 py-3 text-sm font-medium rounded hover:bg-slate-700 active:scale-95 transition">
+                    <button
+                        onClick={() => !cart[productId] ? addToCartHandler() : router.push('/cart')}
+                        className="flex-1 lg:flex-none bg-accent hover:bg-accent-hover text-slate-900 font-bold px-10 py-3.5 rounded-lg shadow-md shadow-accent/20 hover:shadow-lg hover:shadow-accent/30 active:scale-[0.98] transition-all"
+                    >
                         {!cart[productId] ? 'Add to Cart' : 'View Cart'}
                     </button>
                 </div>
-                <hr className="border-slate-800 my-5" />
-                <div className="flex flex-col gap-4 text-slate-400">
-                    <p className="flex gap-3"> <EarthIcon className="text-slate-400" /> Free shipping worldwide </p>
-                    <p className="flex gap-3"> <CreditCardIcon className="text-slate-400" /> 100% Secured Payment </p>
-                    <p className="flex gap-3"> <UserIcon className="text-slate-400" /> Trusted by top brands </p>
-                </div>
 
+                <hr className="border-white/10 mt-2" />
+
+                <div className="flex flex-col gap-4">
+                    {trustPoints.map(({ icon: Icon, label }, index) => (
+                        <div key={index} className="flex items-center gap-3 text-sm text-muted hover:text-slate-200 transition-colors w-fit">
+                            <Icon size={20} className="shrink-0" />
+                            {label}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )
