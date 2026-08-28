@@ -1,15 +1,39 @@
 "use client";
-import { House, PackageIcon, PackageSearch, ShoppingCart, StoreIcon } from "lucide-react";
+import { House, PackageIcon, PackageSearch, ShieldCheckIcon, ShoppingCart, StoreIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useUser, useClerk, UserButton, Protect } from "@clerk/nextjs";
+import { useUser, useClerk, useAuth, UserButton, Protect } from "@clerk/nextjs";
+import axios from "axios";
 const Navbar = () => {
   const { user } = useUser();
   const { openSignIn } = useClerk();
+  const { getToken } = useAuth();
   const router = useRouter();
 
   const cartCount = useSelector((state) => state.cart.total);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const fetchIsAdmin = async () => {
+      try {
+        const token = await getToken();
+        const { data } = await axios.get("/api/admin/is-admin", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setIsAdmin(data.isAdmin);
+      } catch (error) {
+        setIsAdmin(false);
+      }
+    };
+
+    if (user) {
+      fetchIsAdmin();
+    } else {
+      setIsAdmin(false);
+    }
+  }, [user]);
 
   return (
     <nav className="relative bg-neutral-950">
@@ -72,6 +96,13 @@ const Navbar = () => {
                     label="My Orders"
                     onClick={() => router.push("/orders")}
                   />
+                  {isAdmin && (
+                    <UserButton.Action
+                      labelIcon={<ShieldCheckIcon size={16} />}
+                      label="Admin"
+                      onClick={() => router.push("/admin")}
+                    />
+                  )}
                 </UserButton.MenuItems>
               </UserButton>
             )}
@@ -97,6 +128,13 @@ const Navbar = () => {
                     label="Sell on NexBuy"
                     onClick={() => router.push("/create-store")}
                   />
+                  {isAdmin && (
+                    <UserButton.Action
+                      labelIcon={<ShieldCheckIcon size={16} />}
+                      label="Admin"
+                      onClick={() => router.push("/admin")}
+                    />
+                  )}
                 </UserButton.MenuItems>
               </UserButton>
             ) : (

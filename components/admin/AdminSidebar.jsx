@@ -24,35 +24,42 @@ const AdminSidebar = () => {
   ];
 
   return user && (
-    <div className="inline-flex h-full flex-col gap-5 border-r border-slate-800 sm:min-w-60">
-      <div className="flex flex-col gap-3 justify-center items-center pt-8 max-sm:hidden">
+    <div className="flex h-full flex-col gap-6 border-r border-white/10 bg-panel/40 sm:min-w-60 shrink-0">
+      <div className="flex flex-col gap-3 justify-center items-center pt-8 px-4 max-sm:hidden">
         <Image
-          className="w-14 h-14 rounded-full"
+          className="size-14 rounded-full ring-2 ring-white/10"
           src={user?.imageUrl}
           alt=""
           width={80}
           height={80}
         />
-        <p className="text-slate-300">Hi, {user?.fullName}</p>
+        <p className="text-sm text-slate-300 text-center">
+          Hi, <span className="text-slate-100 font-medium">{user?.fullName}</span>
+        </p>
       </div>
 
-      <div className="max-sm:mt-6">
-        {sidebarLinks.map((link, index) => (
-          <Link
-            key={index}
-            href={link.href}
-            className={`relative flex items-center gap-3 text-slate-400 hover:bg-slate-800 p-2.5 transition ${
-              pathname === link.href && "bg-slate-800 sm:text-slate-100"
-            }`}
-          >
-            <link.icon size={18} className="sm:ml-5" />
-            <p className="max-sm:hidden">{link.name}</p>
-            {pathname === link.href && (
-              <span className="absolute bg-amber-500 right-0 top-1.5 bottom-1.5 w-1 sm:w-1.5 rounded-l"></span>
-            )}
-          </Link>
-        ))}
-      </div>
+      <nav className="flex flex-col gap-1 px-3 max-sm:mt-6 max-sm:px-2">
+        {sidebarLinks.map((link, index) => {
+          const isActive = pathname === link.href;
+          return (
+            <Link
+              key={index}
+              href={link.href}
+              className={`relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                isActive
+                  ? "bg-accent/10 text-accent"
+                  : "text-muted hover:bg-white/5 hover:text-slate-200"
+              }`}
+            >
+              {isActive && (
+                <span className="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r bg-accent" />
+              )}
+              <link.icon size={18} className="shrink-0 sm:ml-1" />
+              <p className="max-sm:hidden">{link.name}</p>
+            </Link>
+          );
+        })}
+      </nav>
     </div>
   );
 };
