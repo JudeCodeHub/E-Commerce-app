@@ -6,6 +6,7 @@ export async function GET(request) {
     let products = await prisma.product.findMany({
       where: {
         inStock: true,
+        archived: false,
       },
       include: {
         rating: {

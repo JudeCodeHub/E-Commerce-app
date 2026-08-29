@@ -33,6 +33,7 @@ model Product {
     category    String
     inStock     Boolean  @default(true)
     featured    Boolean  @default(false)
+    archived    Boolean  @default(false)
     storeId     String
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt

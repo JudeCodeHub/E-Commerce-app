@@ -73,88 +73,101 @@ export default function Dashboard() {
   if (loading) return <Loading />;
 
   return (
-    <div className=" text-slate-400 mb-28">
-      <h1 className="text-2xl">
-        Seller <span className="text-slate-100 font-medium">Dashboard</span>
+    <div className="w-full mb-20">
+      <h1 className="text-2xl text-muted">
+        Seller <span className="text-white font-semibold">Dashboard</span>
       </h1>
 
-      <div className="flex flex-wrap gap-5 my-10 mt-4">
+      {/* Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mt-6">
         {dashboardCardsData.map((card, index) => (
           <div
             key={index}
-            className="flex items-center gap-11 border border-slate-800 p-3 px-6 rounded-lg"
+            className="flex items-center gap-4 bg-panel border border-white/10 rounded-2xl p-5"
           >
-            <div className="flex flex-col gap-3 text-xs">
-              <p>{card.title}</p>
-              <b className="text-2xl font-medium text-slate-100">
+            <div className="size-12 rounded-xl bg-accent/15 text-accent flex items-center justify-center shrink-0">
+              <card.icon size={22} />
+            </div>
+            <div className="flex flex-col gap-1 min-w-0">
+              <p className="text-xs text-muted truncate">{card.title}</p>
+              <b className="text-2xl font-semibold text-white truncate">
                 {card.value}
               </b>
             </div>
-            <card.icon
-              size={50}
-              className=" w-11 h-11 p-2.5 text-slate-400 bg-slate-800 rounded-full"
-            />
           </div>
         ))}
       </div>
 
-      <h2>Total Reviews</h2>
+      {/* Reviews */}
+      <h2 className="text-2xl text-muted mt-10">
+        Total <span className="text-white font-semibold">Reviews</span>
+      </h2>
 
-      <div className="mt-5">
-        {dashboardData.ratings.map((review, index) => (
-          <div
-            key={index}
-            className="flex max-sm:flex-col gap-5 sm:items-center justify-between py-6 border-b border-slate-800 text-sm text-slate-300 max-w-4xl"
-          >
-            <div>
-              <div className="flex gap-3">
-                <Image
-                  src={review.user.image}
-                  alt=""
-                  className="w-10 aspect-square rounded-full"
-                  width={100}
-                  height={100}
-                />
-                <div>
-                  <p className="font-medium">{review.user.name}</p>
-                  <p className="font-light text-slate-400">
-                    {new Date(review.createdAt).toDateString()}
+      {dashboardData.ratings.length ? (
+        <div className="flex flex-col gap-4 mt-6">
+          {dashboardData.ratings.map((review, index) => (
+            <div
+              key={index}
+              className="flex max-sm:flex-col gap-5 sm:items-center justify-between bg-panel border border-white/10 rounded-2xl p-5"
+            >
+              <div>
+                <div className="flex gap-3">
+                  <Image
+                    src={review.user.image}
+                    alt=""
+                    className="size-10 aspect-square rounded-full ring-2 ring-white/10"
+                    width={100}
+                    height={100}
+                  />
+                  <div>
+                    <p className="font-medium text-slate-100">
+                      {review.user.name}
+                    </p>
+                    <p className="text-xs text-muted">
+                      {new Date(review.createdAt).toDateString()}
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-3 text-slate-300 max-w-xs leading-relaxed">
+                  {review.review}
+                </p>
+              </div>
+              <div className="flex flex-col justify-between gap-4 sm:items-end">
+                <div className="flex flex-col sm:items-end gap-1">
+                  <p className="text-xs text-muted">{review.product?.category}</p>
+                  <p className="font-medium text-slate-100">
+                    {review.product?.name}
                   </p>
+                  <div className="flex items-center">
+                    {Array(5)
+                      .fill("")
+                      .map((_, index) => (
+                        <StarIcon
+                          key={index}
+                          size={16}
+                          className="text-transparent mt-0.5"
+                          fill={
+                            review.rating >= index + 1 ? "#00C950" : "#14532D"
+                          }
+                        />
+                      ))}
+                  </div>
                 </div>
+                <button
+                  onClick={() => router.push(`/product/${review.product.id}`)}
+                  className="px-5 py-2 border border-white/10 text-slate-200 hover:bg-white/5 rounded-lg text-sm font-medium transition-colors"
+                >
+                  View Product
+                </button>
               </div>
-              <p className="mt-3 text-slate-400 max-w-xs leading-6">
-                {review.review}
-              </p>
             </div>
-            <div className="flex flex-col justify-between gap-6 sm:items-end">
-              <div className="flex flex-col sm:items-end">
-                <p className="text-slate-400">{review.product?.category}</p>
-                <p className="font-medium">{review.product?.name}</p>
-                <div className="flex items-center">
-                  {Array(5)
-                    .fill("")
-                    .map((_, index) => (
-                      <StarIcon
-                        key={index}
-                        size={17}
-                        className="text-transparent mt-0.5"
-                        fill={
-                          review.rating >= index + 1 ? "#00C950" : "#D1D5DB"
-                        }
-                      />
-                    ))}
-                </div>
-              </div>
-              <button
-                onClick={() => router.push(`/product/${review.product.id}`)}
-                className="bg-slate-800 text-slate-100 px-5 py-2 hover:bg-slate-700 rounded transition-all"
-              >
-                View Product
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="flex items-center justify-center h-60">
+          <p className="text-2xl text-muted font-medium">No reviews yet</p>
+        </div>
+      )}
     </div>
   );
 }

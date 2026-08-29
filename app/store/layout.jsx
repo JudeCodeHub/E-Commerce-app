@@ -13,7 +13,7 @@ export default function RootAdminLayout({ children }) {
         <StoreLayout>{children}</StoreLayout>
       </SignedIn>
       <SignedOut>
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="min-h-screen flex justify-center items-center bg-neutral-950">
           <SignIn fallbackRedirectUrl="/store" routing="hash" />
         </div>
       </SignedOut>
