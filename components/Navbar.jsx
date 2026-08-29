@@ -14,6 +14,7 @@ const Navbar = () => {
 
   const cartCount = useSelector((state) => state.cart.total);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [storeStatus, setStoreStatus] = useState(null); // null = still checking
 
   useEffect(() => {
     const fetchIsAdmin = async () => {
@@ -28,12 +29,37 @@ const Navbar = () => {
       }
     };
 
+    const fetchStoreStatus = async () => {
+      try {
+        const token = await getToken();
+        const { data } = await axios.get("/api/store/create", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setStoreStatus(data.status);
+      } catch (error) {
+        setStoreStatus("Not registered");
+      }
+    };
+
     if (user) {
       fetchIsAdmin();
+      fetchStoreStatus();
     } else {
       setIsAdmin(false);
+      setStoreStatus(null);
     }
   }, [user]);
+
+  const sellerCheckLoading = !!user && storeStatus === null;
+
+  const sellerLink =
+    storeStatus === "approved"
+      ? { label: "My Store", href: "/store", className: "border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-white" }
+      : storeStatus === "pending"
+      ? { label: "Store Pending Approval", href: "/create-store", className: "border-slate-700 text-slate-400 hover:border-slate-500" }
+      : storeStatus === "rejected"
+      ? { label: "Store Rejected", href: "/create-store", className: "border-red-500/40 text-red-400 hover:border-red-500" }
+      : { label: "Sell on NexBuy", href: "/create-store", className: "border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-white" };
 
   return (
     <nav className="relative bg-neutral-950">
@@ -74,12 +100,17 @@ const Navbar = () => {
               </span>
             </Link>
 
-            <Link
-              href="/create-store"
-              className="border border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-white transition px-4 py-1.5 rounded-full text-sm"
-            >
-              Sell on NexBuy
-            </Link>
+            {sellerCheckLoading ? (
+              <div className="w-36 h-8 rounded-full bg-slate-800 animate-pulse" />
+            ) : (
+              <Link
+                href={sellerLink.href}
+                className={`flex items-center gap-2 border ${sellerLink.className} transition px-4 py-1.5 rounded-full text-sm`}
+              >
+                <StoreIcon size={16} />
+                {sellerLink.label}
+              </Link>
+            )}
 
             {!user ? (
               <button
@@ -123,11 +154,13 @@ const Navbar = () => {
                     label="My Orders"
                     onClick={() => router.push("/orders")}
                   />
-                  <UserButton.Action
-                    labelIcon={<StoreIcon size={16} />}
-                    label="Sell on NexBuy"
-                    onClick={() => router.push("/create-store")}
-                  />
+                  {!sellerCheckLoading && (
+                    <UserButton.Action
+                      labelIcon={<StoreIcon size={16} />}
+                      label={sellerLink.label}
+                      onClick={() => router.push(sellerLink.href)}
+                    />
+                  )}
                   {isAdmin && (
                     <UserButton.Action
                       labelIcon={<ShieldCheckIcon size={16} />}

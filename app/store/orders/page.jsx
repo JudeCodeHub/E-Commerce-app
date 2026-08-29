@@ -4,6 +4,14 @@ import Loading from "@/components/Loading";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { X } from "lucide-react";
+
+const statusStyles = {
+  ORDER_PLACED: "bg-blue-500/15 text-blue-400",
+  PROCESSING: "bg-yellow-500/15 text-yellow-400",
+  SHIPPED: "bg-purple-500/15 text-purple-400",
+  DELIVERED: "bg-green-500/15 text-green-400",
+};
 
 export default function StoreOrders() {
   const { getToken } = useAuth();
@@ -72,16 +80,19 @@ export default function StoreOrders() {
   if (loading) return <Loading />;
 
   return (
-    <>
-      <h1 className="text-2xl text-slate-400 mb-5">
-        Store <span className="text-slate-100 font-medium">Orders</span>
+    <div className="w-full mb-20">
+      <h1 className="text-2xl text-muted">
+        Store <span className="text-white font-semibold">Orders</span>
       </h1>
+
       {orders.length === 0 ? (
-        <p>No orders found</p>
+        <div className="flex items-center justify-center h-80">
+          <h1 className="text-2xl text-muted font-medium">No orders found</h1>
+        </div>
       ) : (
-        <div className="overflow-x-auto max-w-4xl rounded-md shadow border border-slate-800">
-          <table className="w-full text-sm text-left text-slate-300">
-            <thead className="bg-slate-800 text-slate-300 text-xs uppercase tracking-wider">
+        <div className="w-full overflow-x-auto mt-6 rounded-2xl border border-white/10 bg-panel">
+          <table className="w-full text-sm">
+            <thead className="bg-white/5">
               <tr>
                 {[
                   "Sr. No.",
@@ -92,36 +103,45 @@ export default function StoreOrders() {
                   "Status",
                   "Date",
                 ].map((heading, i) => (
-                  <th key={i} className="px-4 py-3">
+                  <th
+                    key={i}
+                    className="py-3.5 px-4 text-left font-semibold text-muted"
+                  >
                     {heading}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800">
+            <tbody className="divide-y divide-white/5">
               {orders.map((order, index) => (
                 <tr
                   key={order.id}
-                  className="hover:bg-slate-800 transition-colors duration-150 cursor-pointer"
+                  className="hover:bg-white/5 transition-colors cursor-pointer"
                   onClick={() => openModal(order)}
                 >
-                  <td className="pl-6 text-amber-500">{index + 1}</td>
-                  <td className="px-4 py-3">{order.user?.name}</td>
-                  <td className="px-4 py-3 font-medium text-slate-100">
+                  <td className="py-3.5 px-4 text-accent font-medium">
+                    {index + 1}
+                  </td>
+                  <td className="py-3.5 px-4 text-slate-200">
+                    {order.user?.name}
+                  </td>
+                  <td className="py-3.5 px-4 font-semibold text-white">
                     ${order.total}
                   </td>
-                  <td className="px-4 py-3">{order.paymentMethod}</td>
-                  <td className="px-4 py-3">
+                  <td className="py-3.5 px-4 text-slate-300">
+                    {order.paymentMethod}
+                  </td>
+                  <td className="py-3.5 px-4">
                     {order.isCouponUsed ? (
-                      <span className="bg-amber-500/20 text-amber-300 text-xs px-2 py-1 rounded-full">
+                      <span className="bg-accent/15 text-accent text-xs font-semibold px-2.5 py-1 rounded-full">
                         {order.coupon?.code}
                       </span>
                     ) : (
-                      "—"
+                      <span className="text-muted">—</span>
                     )}
                   </td>
                   <td
-                    className="px-4 py-3"
+                    className="py-3.5 px-4"
                     onClick={(e) => {
                       e.stopPropagation();
                     }}
@@ -131,7 +151,9 @@ export default function StoreOrders() {
                       onChange={(e) =>
                         updateOrderStatus(order.id, e.target.value)
                       }
-                      className="border border-slate-700 bg-slate-800 text-slate-100 rounded-md text-sm focus:ring focus:ring-blue-500/40"
+                      className={`text-xs font-semibold rounded-full pl-3 pr-2 py-1 outline-none border-none cursor-pointer transition-colors ${
+                        statusStyles[order.status] || "bg-white/5 text-muted"
+                      }`}
                     >
                       <option value="ORDER_PLACED">ORDER_PLACED</option>
                       <option value="PROCESSING">PROCESSING</option>
@@ -139,7 +161,7 @@ export default function StoreOrders() {
                       <option value="DELIVERED">DELIVERED</option>
                     </select>
                   </td>
-                  <td className="px-4 py-3 text-slate-400">
+                  <td className="py-3.5 px-4 text-slate-400">
                     {new Date(order.createdAt).toLocaleString()}
                   </td>
                 </tr>
@@ -153,57 +175,81 @@ export default function StoreOrders() {
       {isModalOpen && selectedOrder && (
         <div
           onClick={closeModal}
-          className="fixed inset-0 flex items-center justify-center bg-black/60 text-slate-100 text-sm backdrop-blur-xs z-50"
+          className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-50 px-4"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-slate-900 border border-slate-700 rounded-lg shadow-lg max-w-2xl w-full p-6 relative"
+            className="bg-panel border border-white/10 rounded-2xl shadow-2xl shadow-black/40 max-w-2xl w-full p-6 sm:p-8 relative max-h-[85vh] overflow-y-auto"
           >
-            <h2 className="text-xl font-semibold text-slate-100 mb-4 text-center">
+            <button
+              onClick={closeModal}
+              className="absolute top-5 right-5 size-8 flex items-center justify-center rounded-lg text-muted hover:bg-white/5 hover:text-white transition-colors"
+            >
+              <X size={18} />
+            </button>
+
+            <h2 className="text-xl font-semibold text-white mb-6">
               Order Details
             </h2>
 
             {/* Customer Details */}
-            <div className="mb-4">
-              <h3 className="font-semibold mb-2">Customer Details</h3>
-              <p>
-                <span className="text-amber-500">Name:</span>{" "}
-                {selectedOrder.user?.name}
-              </p>
-              <p>
-                <span className="text-amber-500">Email:</span>{" "}
-                {selectedOrder.user?.email}
-              </p>
-              <p>
-                <span className="text-amber-500">Phone:</span>{" "}
-                {selectedOrder.address?.phone}
-              </p>
-              <p>
-                <span className="text-amber-500">Address:</span>{" "}
-                {`${selectedOrder.address?.street}, ${selectedOrder.address?.city}, ${selectedOrder.address?.state}, ${selectedOrder.address?.zip}, ${selectedOrder.address?.country}`}
-              </p>
+            <div className="mb-6">
+              <h3 className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">
+                Customer Details
+              </h3>
+              <div className="text-sm text-slate-300 space-y-1.5">
+                <p>
+                  <span className="text-muted">Name:</span>{" "}
+                  <span className="text-slate-100">
+                    {selectedOrder.user?.name}
+                  </span>
+                </p>
+                <p>
+                  <span className="text-muted">Email:</span>{" "}
+                  <span className="text-slate-100">
+                    {selectedOrder.user?.email}
+                  </span>
+                </p>
+                <p>
+                  <span className="text-muted">Phone:</span>{" "}
+                  <span className="text-slate-100">
+                    {selectedOrder.address?.phone}
+                  </span>
+                </p>
+                <p>
+                  <span className="text-muted">Address:</span>{" "}
+                  <span className="text-slate-100">
+                    {`${selectedOrder.address?.street}, ${selectedOrder.address?.city}, ${selectedOrder.address?.state}, ${selectedOrder.address?.zip}, ${selectedOrder.address?.country}`}
+                  </span>
+                </p>
+              </div>
             </div>
 
             {/* Products */}
-            <div className="mb-4">
-              <h3 className="font-semibold mb-2">Products</h3>
-              <div className="space-y-2">
+            <div className="mb-6">
+              <h3 className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">
+                Products
+              </h3>
+              <div className="space-y-2.5">
                 {selectedOrder.orderItems.map((item, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-4 border border-slate-800 shadow rounded p-2"
+                    className="flex items-center gap-4 border border-white/10 rounded-lg p-3"
                   >
                     <img
                       src={
-                        item.product.images?.[0].src || item.product.images?.[0]
+                        item.product.images?.[0].src ||
+                        item.product.images?.[0]
                       }
                       alt={item.product?.name}
-                      className="w-16 h-16 object-cover rounded"
+                      className="size-14 object-cover rounded-lg bg-white/5"
                     />
-                    <div className="flex-1">
-                      <p className="text-slate-100">{item.product?.name}</p>
-                      <p>Qty: {item.quantity}</p>
-                      <p>Price: ${item.price}</p>
+                    <div className="flex-1 text-sm">
+                      <p className="text-slate-100 font-medium">
+                        {item.product?.name}
+                      </p>
+                      <p className="text-muted">Qty: {item.quantity}</p>
+                      <p className="text-muted">Price: ${item.price}</p>
                     </div>
                   </div>
                 ))}
@@ -211,37 +257,51 @@ export default function StoreOrders() {
             </div>
 
             {/* Payment & Status */}
-            <div className="mb-4">
+            <div className="text-sm text-slate-300 space-y-1.5 border-t border-white/10 pt-4">
               <p>
-                <span className="text-amber-500">Payment Method:</span>{" "}
-                {selectedOrder.paymentMethod}
+                <span className="text-muted">Payment Method:</span>{" "}
+                <span className="text-slate-100">
+                  {selectedOrder.paymentMethod}
+                </span>
               </p>
               <p>
-                <span className="text-amber-500">Paid:</span>{" "}
-                {selectedOrder.isPaid ? "Yes" : "No"}
+                <span className="text-muted">Paid:</span>{" "}
+                <span className="text-slate-100">
+                  {selectedOrder.isPaid ? "Yes" : "No"}
+                </span>
               </p>
               {selectedOrder.isCouponUsed && (
                 <p>
-                  <span className="text-amber-500">Coupon:</span>{" "}
-                  {selectedOrder.coupon.code} ({selectedOrder.coupon.discount}%
-                  off)
+                  <span className="text-muted">Coupon:</span>{" "}
+                  <span className="text-slate-100">
+                    {selectedOrder.coupon.code} (
+                    {selectedOrder.coupon.discount}% off)
+                  </span>
                 </p>
               )}
-              <p>
-                <span className="text-amber-500">Status:</span>{" "}
-                {selectedOrder.status}
+              <p className="flex items-center gap-2">
+                <span className="text-muted">Status:</span>
+                <span
+                  className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
+                    statusStyles[selectedOrder.status] ||
+                    "bg-white/5 text-muted"
+                  }`}
+                >
+                  {selectedOrder.status}
+                </span>
               </p>
               <p>
-                <span className="text-amber-500">Order Date:</span>{" "}
-                {new Date(selectedOrder.createdAt).toLocaleString()}
+                <span className="text-muted">Order Date:</span>{" "}
+                <span className="text-slate-100">
+                  {new Date(selectedOrder.createdAt).toLocaleString()}
+                </span>
               </p>
             </div>
 
-            {/* Actions */}
-            <div className="flex justify-end">
+            <div className="flex justify-end mt-6">
               <button
                 onClick={closeModal}
-                className="px-4 py-2 bg-slate-700 text-white rounded hover:bg-slate-600"
+                className="px-6 py-2.5 rounded-lg border border-white/10 text-slate-200 hover:bg-white/5 transition-colors text-sm font-medium"
               >
                 Close
               </button>
@@ -249,6 +309,6 @@ export default function StoreOrders() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

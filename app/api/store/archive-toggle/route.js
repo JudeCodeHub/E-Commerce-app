@@ -33,24 +33,29 @@ export async function PUT(request) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
 
-    const isGoingOutOfStock = product.inStock;
+    const isArchiving = !product.archived;
 
-    await prisma.product.update({
+    const updated = await prisma.product.update({
       where: {
         id: productId,
         storeId,
       },
       data: {
-        inStock: !product.inStock,
-        featured: isGoingOutOfStock ? false : product.featured,
+        archived: isArchiving,
+        featured: isArchiving ? false : product.featured,
       },
     });
 
-    if (isGoingOutOfStock && product.featured) {
+    if (isArchiving && product.featured) {
       await refillFeaturedSlots();
     }
 
-    return NextResponse.json({ message: "product stock updated successfully" });
+    return NextResponse.json({
+      message: updated.archived
+        ? "Product archived successfully"
+        : "Product restored successfully",
+      product: updated,
+    });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

@@ -19,6 +19,9 @@ export async function GET(request) {
       },
       include: {
         Product: {
+          where: {
+            archived: false,
+          },
           include: {
             rating: true,
           },
