@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
 import { Loader2, UploadCloud, X } from "lucide-react";
+import CustomSelect from "@/components/CustomSelect";
 
 const FormField = ({ label, name, textarea, ...rest }) => (
   <div>
@@ -65,6 +66,9 @@ export default function StoreAddProduct() {
       if (!images[1] && !images[2] && !images[3] && !images[4]) {
         return toast.error("Please upload at least one image");
       }
+      if (!productInfo.category) {
+        return toast.error("Please select a category");
+      }
       setLoading(true);
 
       const formData = new FormData();
@@ -111,7 +115,7 @@ export default function StoreAddProduct() {
         onSubmit={(e) =>
           toast.promise(onSubmitHandler(e), { loading: "Adding Product..." })
         }
-        className="bg-panel border border-white/10 rounded-2xl p-6 sm:p-8 mt-6 max-w-[920px] flex flex-col gap-6"
+        className="bg-panel border border-white/10 rounded-2xl p-6 sm:p-8 mt-6 w-full flex flex-col gap-6"
       >
         <div className="grid lg:grid-cols-2 gap-x-10 gap-y-6">
           {/* Left column */}
@@ -219,21 +223,14 @@ export default function StoreAddProduct() {
               <label className="block text-sm font-medium text-white mb-2">
                 Category
               </label>
-              <select
-                onChange={(e) =>
-                  setProductInfo({ ...productInfo, category: e.target.value })
-                }
+              <CustomSelect
+                options={categories}
                 value={productInfo.category}
-                className="w-full h-12 bg-white/5 border border-white/10 focus:border-accent text-slate-100 rounded-lg px-4 outline-none transition-colors"
-                required
-              >
-                <option value="">Select a category</option>
-                {categories.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
+                onChange={(category) =>
+                  setProductInfo({ ...productInfo, category })
+                }
+                placeholder="Select a category"
+              />
             </div>
           </div>
         </div>

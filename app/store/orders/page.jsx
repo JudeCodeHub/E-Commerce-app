@@ -5,13 +5,7 @@ import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { X } from "lucide-react";
-
-const statusStyles = {
-  ORDER_PLACED: "bg-blue-500/15 text-blue-400",
-  PROCESSING: "bg-yellow-500/15 text-yellow-400",
-  SHIPPED: "bg-purple-500/15 text-purple-400",
-  DELIVERED: "bg-green-500/15 text-green-400",
-};
+import OrderStatusSelect, { orderStatusConfig } from "@/components/store/OrderStatusSelect";
 
 export default function StoreOrders() {
   const { getToken } = useAuth();
@@ -146,20 +140,10 @@ export default function StoreOrders() {
                       e.stopPropagation();
                     }}
                   >
-                    <select
+                    <OrderStatusSelect
                       value={order.status}
-                      onChange={(e) =>
-                        updateOrderStatus(order.id, e.target.value)
-                      }
-                      className={`text-xs font-semibold rounded-full pl-3 pr-2 py-1 outline-none border-none cursor-pointer transition-colors ${
-                        statusStyles[order.status] || "bg-white/5 text-muted"
-                      }`}
-                    >
-                      <option value="ORDER_PLACED">ORDER_PLACED</option>
-                      <option value="PROCESSING">PROCESSING</option>
-                      <option value="SHIPPED">SHIPPED</option>
-                      <option value="DELIVERED">DELIVERED</option>
-                    </select>
+                      onChange={(status) => updateOrderStatus(order.id, status)}
+                    />
                   </td>
                   <td className="py-3.5 px-4 text-slate-400">
                     {new Date(order.createdAt).toLocaleString()}
@@ -283,11 +267,12 @@ export default function StoreOrders() {
                 <span className="text-muted">Status:</span>
                 <span
                   className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
-                    statusStyles[selectedOrder.status] ||
+                    orderStatusConfig[selectedOrder.status]?.badge ||
                     "bg-white/5 text-muted"
                   }`}
                 >
-                  {selectedOrder.status}
+                  {orderStatusConfig[selectedOrder.status]?.label ||
+                    selectedOrder.status}
                 </span>
               </p>
               <p>

@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
 import { Loader2, UploadCloud, X } from "lucide-react";
+import CustomSelect from "@/components/CustomSelect";
 
 const categories = [
   "Electronics",
@@ -70,6 +71,9 @@ const ProductEditModal = ({ product, onClose, onSaved }) => {
       const hasAnyImage = Object.values(images).some((image) => image);
       if (!hasAnyImage) {
         return toast.error("Please upload at least one image");
+      }
+      if (!productInfo.category) {
+        return toast.error("Please select a category");
       }
       setLoading(true);
 
@@ -244,21 +248,14 @@ const ProductEditModal = ({ product, onClose, onSaved }) => {
                 <label className="block text-sm font-medium text-white mb-2">
                   Category
                 </label>
-                <select
-                  onChange={(e) =>
-                    setProductInfo({ ...productInfo, category: e.target.value })
-                  }
+                <CustomSelect
+                  options={categories}
                   value={productInfo.category}
-                  className="w-full h-12 bg-white/5 border border-white/10 focus:border-accent text-slate-100 rounded-lg px-4 outline-none transition-colors"
-                  required
-                >
-                  <option value="">Select a category</option>
-                  {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(category) =>
+                    setProductInfo({ ...productInfo, category })
+                  }
+                  placeholder="Select a category"
+                />
               </div>
             </div>
           </div>
