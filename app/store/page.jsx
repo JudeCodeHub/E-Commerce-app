@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "@clerk/nextjs";
 import toast from "react-hot-toast";
+import SellerRevenueChart from "@/components/SellerRevenueChart";
+import TopProducts from "@/components/TopProducts";
 
 export default function Dashboard() {
   const { getToken } = useAuth();
@@ -26,7 +28,9 @@ export default function Dashboard() {
     totalEarnings: 0,
     totalOrders: 0,
     ratings: [],
+    recentOrders: [],
   });
+  const [range, setRange] = useState(30);
 
   const dashboardCardsData = [
     {
@@ -96,6 +100,40 @@ export default function Dashboard() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Revenue Trend */}
+      <div className="flex items-center justify-between flex-wrap gap-3 mt-10">
+        <h2 className="text-2xl text-muted">
+          Revenue <span className="text-white font-semibold">Trend</span>
+        </h2>
+        <div className="inline-flex bg-panel border border-white/10 rounded-lg p-1">
+          {[7, 30, 90].map((days) => (
+            <button
+              key={days}
+              onClick={() => setRange(days)}
+              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                range === days
+                  ? "bg-accent text-slate-900 font-semibold"
+                  : "text-muted hover:text-white"
+              }`}
+            >
+              {days}d
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-6">
+        <div className="lg:col-span-2 bg-panel border border-white/10 rounded-2xl p-6">
+          <SellerRevenueChart recentOrders={dashboardData.recentOrders} range={range} />
+        </div>
+        <div className="bg-panel border border-white/10 rounded-2xl p-6">
+          <h3 className="text-lg font-medium text-white mb-4">
+            <span className="text-muted">Top /</span> Products
+          </h3>
+          <TopProducts recentOrders={dashboardData.recentOrders} range={range} />
+        </div>
       </div>
 
       {/* Reviews */}
