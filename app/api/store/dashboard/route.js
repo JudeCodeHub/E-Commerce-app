@@ -12,6 +12,14 @@ export async function GET(request) {
       where: { storeId },
     });
 
+    const recentOrders = await prisma.order.findMany({
+      where: {
+        storeId,
+        createdAt: { gte: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000) },
+      },
+      include: { orderItems: { include: { product: true } } },
+    });
+
     const products = await prisma.product.findMany({
       where: { storeId },
     });
@@ -28,6 +36,7 @@ export async function GET(request) {
         orders.reduce((acc, order) => acc + order.total, 0)
       ),
       totalProducts: products.length,
+      recentOrders,
     };
 
     return NextResponse.json(dasboardData);
