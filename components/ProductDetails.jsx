@@ -102,7 +102,7 @@ const ProductDetails = ({ product }) => {
                     }
                     <button
                         onClick={() => !cart[productId] ? addToCartHandler() : router.push('/cart')}
-                        className="flex-1 lg:flex-none bg-accent hover:bg-accent-hover text-slate-900 font-bold px-10 py-3.5 rounded-lg shadow-md shadow-accent/20 hover:shadow-lg hover:shadow-accent/30 active:scale-[0.98] transition-all"
+                        className="flex-1 lg:flex-none h-[52px] flex items-center justify-center bg-accent hover:bg-accent-hover text-slate-900 font-bold px-10 rounded-lg shadow-md shadow-accent/20 hover:shadow-lg hover:shadow-accent/30 active:scale-[0.98] transition-all"
                     >
                         {!cart[productId] ? 'Add to Cart' : 'View Cart'}
                     </button>

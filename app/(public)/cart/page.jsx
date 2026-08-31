@@ -3,8 +3,9 @@ import Counter from "@/components/Counter";
 import OrderSummary from "@/components/OrderSummary";
 import PageTitle from "@/components/PageTitle";
 import { deleteItemFromCart } from "@/lib/features/cart/cartSlice";
-import { Trash2Icon } from "lucide-react";
+import { HeartIcon, Trash2Icon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -82,7 +83,15 @@ export default function Cart() {
 
             <div className="max-w-7xl mx-auto ">
                 {/* Title */}
-                <PageTitle heading="My Cart" text="items in your cart" linkText="Add more" path="/shop" />
+                <div className="flex items-center justify-between gap-4">
+                    <PageTitle heading="My Cart" text="items in your cart" linkText="Add more" path="/shop" />
+                    <Link
+                        href="/wishlist"
+                        className="flex items-center gap-2 text-sm text-slate-300 hover:text-accent border border-white/10 hover:border-accent/60 rounded-full px-4 py-2 transition-colors shrink-0"
+                    >
+                        <HeartIcon size={16} /> Wishlist
+                    </Link>
+                </div>
 
                 <div className="flex items-start justify-between gap-5 max-lg:flex-col">
 

@@ -1,5 +1,16 @@
 import { inngest } from "./client";
 import prisma from "@/lib/prisma";
+import { resend, FROM_ADDRESS } from "@/lib/resend";
+import OrderConfirmedEmail from "@/emails/OrderConfirmedEmail";
+
+const orderInclude = {
+  user: true,
+  address: true,
+  orderItems: { include: { product: true } },
+};
+
+const buildName = (data) =>
+  [data.first_name, data.last_name].filter(Boolean).join(" ") || "Customer";
 
 export const syncUsercreation = inngest.createFunction(
   { id: "sync-user-create" },
@@ -10,7 +21,7 @@ export const syncUsercreation = inngest.createFunction(
       data: {
         id: data.id,
         email: data.email_addresses[0].email_address,
-        name: `${data.first_name} ${data.last_name}`,
+        name: buildName(data),
         image: data.image_url,
       },
     });
@@ -28,7 +39,7 @@ export const syncUserupdation = inngest.createFunction(
       },
       data: {
         email: data.email_addresses[0].email_address,
-        name: `${data.first_name} ${data.last_name}`,
+        name: buildName(data),
         image: data.image_url,
       },
     });
@@ -62,5 +73,25 @@ export const deleteCouponOnExpiry = inngest.createFunction(
         },
       });
     });
+  }
+);
+
+export const sendOrderConfirmedEmail = inngest.createFunction(
+  { id: "send-order-confirmed-email" },
+  { event: "app/order.placed" },
+  async ({ event }) => {
+    const order = await prisma.order.findUnique({
+      where: { id: event.data.orderId },
+      include: orderInclude,
+    });
+    if (!order) return;
+
+    const { error } = await resend.emails.send({
+      from: FROM_ADDRESS,
+      to: order.user.email,
+      subject: `Order Confirmed - #${order.id.slice(-8).toUpperCase()}`,
+      react: <OrderConfirmedEmail order={order} />,
+    });
+    if (error) throw new Error(error.message || "Resend send failed");
   }
 );

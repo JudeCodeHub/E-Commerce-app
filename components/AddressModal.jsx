@@ -5,23 +5,52 @@ import { toast } from "react-hot-toast";
 import { useAuth } from "@clerk/nextjs";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { addAddress } from "@/lib/features/address/addressSlice";
+import { addAddress, updateAddress } from "@/lib/features/address/addressSlice";
 
-const AddressModal = ({ setShowAddressModal }) => {
+const FormField = ({ label, name, ...rest }) => (
+  <div>
+    <label htmlFor={name} className="block text-sm font-medium text-white mb-2">
+      {label}
+    </label>
+    <input
+      id={name}
+      name={name}
+      className="w-full h-11 bg-white/5 text-slate-100 placeholder-slate-500 border border-white/10 focus:border-accent rounded-lg px-4 outline-none transition-colors"
+      {...rest}
+    />
+  </div>
+);
+
+const emptyAddress = {
+  name: "",
+  email: "",
+  street: "",
+  city: "",
+  state: "",
+  zip: "",
+  country: "",
+  phone: "",
+};
+
+const AddressModal = ({ setShowAddressModal, editingAddress }) => {
   const { getToken } = useAuth();
 
   const dispatch = useDispatch();
 
-  const [address, setAddress] = useState({
-    name: "",
-    email: "",
-    street: "",
-    city: "",
-    state: "",
-    zip: "",
-    country: "",
-    phone: "",
-  });
+  const [address, setAddress] = useState(
+    editingAddress
+      ? {
+          name: editingAddress.name,
+          email: editingAddress.email,
+          street: editingAddress.street,
+          city: editingAddress.city,
+          state: editingAddress.state,
+          zip: editingAddress.zip,
+          country: editingAddress.country,
+          phone: editingAddress.phone,
+        }
+      : emptyAddress
+  );
 
   const handleAddressChange = (e) => {
     setAddress({
@@ -35,119 +64,135 @@ const AddressModal = ({ setShowAddressModal }) => {
 
     try {
       const token = await getToken();
-      const { data } = await axios.post(
-        "/api/address",
-        { address },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      dispatch(addAddress(data.newAddress));
-      toast.success(data.message);
+
+      if (editingAddress) {
+        const { data } = await axios.put(
+          "/api/address",
+          { addressId: editingAddress.id, address },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        dispatch(updateAddress(data.updatedAddress));
+        toast.success(data.message);
+      } else {
+        const { data } = await axios.post(
+          "/api/address",
+          { address },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        dispatch(addAddress(data.newAddress));
+        toast.success(data.message);
+      }
+
       setShowAddressModal(false);
     } catch (error) {
-      toast.error(error?.response?.data?.message || error.message);
+      toast.error(error?.response?.data?.error || error.message);
     }
   };
 
   return (
     <form
       onSubmit={(e) =>
-        toast.promise(handleSubmit(e), { loading: "Adding Address..." })
+        toast.promise(handleSubmit(e), {
+          loading: editingAddress ? "Saving changes..." : "Adding Address...",
+        })
       }
-      className="fixed inset-0 z-50 bg-black/70 backdrop-blur h-screen flex items-center justify-center"
+      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center px-4"
     >
-      <div className="relative flex flex-col gap-5 text-slate-100 w-full max-w-sm mx-6 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative flex flex-col gap-5 w-full max-w-sm mx-auto bg-panel border border-white/10 rounded-2xl shadow-2xl shadow-black/40 p-6 sm:p-8"
+      >
         <button
           type="button"
           onClick={() => setShowAddressModal(false)}
-          className="absolute top-4 right-4 text-red-500 hover:text-red-400 cursor-pointer"
+          className="absolute top-5 right-5 size-8 flex items-center justify-center rounded-lg text-muted hover:bg-white/5 hover:text-white transition-colors"
         >
-          <XIcon size={24} />
+          <XIcon size={18} />
         </button>
-        <h2 className="text-3xl ">
-          Add New <span className="font-semibold">Address</span>
+
+        <h2 className="text-xl font-semibold text-white">
+          {editingAddress ? "Edit Address" : "Add New Address"}
         </h2>
-        <input
+
+        <FormField
+          label="Name"
           name="name"
+          type="text"
           onChange={handleAddressChange}
           value={address.name}
-          className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
-          type="text"
           placeholder="Enter your name"
           required
         />
-        <input
+        <FormField
+          label="Email"
           name="email"
+          type="email"
           onChange={handleAddressChange}
           value={address.email}
-          className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
-          type="email"
           placeholder="Email address"
           required
         />
-        <input
+        <FormField
+          label="Street"
           name="street"
+          type="text"
           onChange={handleAddressChange}
           value={address.street}
-          className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
-          type="text"
           placeholder="Street"
           required
         />
-        <div className="flex gap-4">
-          <input
+        <div className="grid grid-cols-2 gap-4">
+          <FormField
+            label="City"
             name="city"
+            type="text"
             onChange={handleAddressChange}
             value={address.city}
-            className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
-            type="text"
             placeholder="City"
             required
           />
-          <input
+          <FormField
+            label="State"
             name="state"
+            type="text"
             onChange={handleAddressChange}
             value={address.state}
-            className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
-            type="text"
             placeholder="State"
             required
           />
         </div>
-        <div className="flex gap-4">
-          <input
+        <div className="grid grid-cols-2 gap-4">
+          <FormField
+            label="Zip Code"
             name="zip"
+            type="number"
             onChange={handleAddressChange}
             value={address.zip}
-            className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
-            type="number"
             placeholder="Zip code"
             required
           />
-          <input
+          <FormField
+            label="Country"
             name="country"
+            type="text"
             onChange={handleAddressChange}
             value={address.country}
-            className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
-            type="text"
             placeholder="Country"
             required
           />
         </div>
-        <input
+        <FormField
+          label="Phone"
           name="phone"
+          type="text"
           onChange={handleAddressChange}
           value={address.phone}
-          className="p-2 px-4 outline-none border border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-500 rounded w-full"
-          type="text"
           placeholder="Phone"
           required
         />
-        <button className="bg-slate-800 text-white text-sm font-medium py-2.5 rounded-md hover:bg-slate-700 active:scale-95 transition-all">
-          SAVE ADDRESS
+
+        <button className="w-full bg-accent hover:bg-accent-hover text-slate-900 font-bold text-sm py-3 rounded-lg transition-colors active:scale-[0.98]">
+          {editingAddress ? "SAVE CHANGES" : "SAVE ADDRESS"}
         </button>
       </div>
     </form>
