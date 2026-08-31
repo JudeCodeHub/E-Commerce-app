@@ -7,6 +7,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Counter from "./Counter";
 import { useDispatch, useSelector } from "react-redux";
+import WishlistButton from "./WishlistButton";
 
 const trustPoints = [
     { icon: EarthIcon, label: "Free shipping worldwide" },
@@ -105,6 +106,12 @@ const ProductDetails = ({ product }) => {
                     >
                         {!cart[productId] ? 'Add to Cart' : 'View Cart'}
                     </button>
+                    <WishlistButton
+                        product={product}
+                        variant="labeled"
+                        size={18}
+                        className="shrink-0 flex items-center justify-center gap-2 h-[52px] px-6 rounded-lg border border-white/10 bg-panel hover:border-accent/60 text-sm font-semibold text-slate-200 transition-colors"
+                    />
                 </div>
 
                 <hr className="border-white/10 mt-2" />

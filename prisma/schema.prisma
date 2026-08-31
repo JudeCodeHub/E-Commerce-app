@@ -20,6 +20,7 @@ model User {
     Address     Address[]
     store       Store?
     buyerOrders Order[]   @relation("BuyerRelation")
+    wishlist    Wishlist[]
 }
 
 // Required for creating a Product: name, description, mrp, price, images, category, storeId
@@ -39,9 +40,24 @@ model Product {
     updatedAt   DateTime @updatedAt
 
     // Relations
-    store      Store       @relation(fields: [storeId], references: [id], onDelete: Cascade)
-    orderItems OrderItem[]
-    rating     Rating[]
+    store        Store       @relation(fields: [storeId], references: [id], onDelete: Cascade)
+    orderItems   OrderItem[]
+    rating       Rating[]
+    wishlistedBy Wishlist[]
+}
+
+// Required for creating a Wishlist entry: userId, productId
+model Wishlist {
+    id        String   @id @default(cuid())
+    userId    String
+    productId String
+    createdAt DateTime @default(now())
+
+    // Relations
+    user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, productId])
 }
 
 enum OrderStatus {

@@ -9,6 +9,7 @@ import { useUser, useAuth } from "@clerk/nextjs";
 import { fetchCart, uploadCart } from "@/lib/features/cart/cartSlice";
 import { fetchAddress } from "@/lib/features/address/addressSlice";
 import { fetchUserRatings } from "@/lib/features/rating/ratingSlice";
+import { fetchWishlist } from "@/lib/features/wishlist/wishlistSlice";
 import { usePathname } from "next/navigation";
 
 export default function PublicLayout({ children }) {
@@ -34,6 +35,7 @@ export default function PublicLayout({ children }) {
       dispatch(uploadCart({ getToken }));
       dispatch(fetchAddress({ getToken }));
       dispatch(fetchUserRatings({ getToken }));
+      dispatch(fetchWishlist({ getToken }));
     }
   }, [cartItems]);
 

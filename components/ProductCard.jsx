@@ -2,32 +2,26 @@
 import { addToCart } from '@/lib/features/cart/cartSlice'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { ShoppingCartAdd01Icon } from '@hugeicons/core-free-icons'
-import { HeartIcon, StarIcon } from 'lucide-react'
+import { StarIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
+import WishlistButton from './WishlistButton'
 
 const ProductCard = ({ product }) => {
 
     const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || '$'
     const dispatch = useDispatch()
     const router = useRouter()
-    const [liked, setLiked] = useState(false)
 
     const rating = product?.rating?.length
         ? Math.round(product.rating.reduce((acc, curr) => acc + curr.rating, 0) / product.rating.length)
         : 0;
 
     const isBestSeller = rating >= 4
-
-    const toggleLike = (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        setLiked((prev) => !prev)
-    }
 
     const handleAddToCart = (e) => {
         e.preventDefault()
@@ -49,9 +43,7 @@ const ProductCard = ({ product }) => {
                 {isBestSeller && (
                     <span className='absolute top-3 left-3 bg-white/90 text-slate-800 text-[11px] font-medium px-3 py-1 rounded-full'>Best Seller</span>
                 )}
-                <button onClick={toggleLike} className='absolute top-3 right-3 bg-white/90 size-7 rounded-full flex items-center justify-center'>
-                    <HeartIcon size={14} className={liked ? 'text-red-500' : 'text-slate-400'} fill={liked ? '#EF4444' : 'none'} />
-                </button>
+                <WishlistButton product={product} className='absolute top-3 right-3 z-10 bg-white/90 hover:bg-white size-7 rounded-full flex items-center justify-center shadow-sm' />
                 <Image width={500} height={500} className='max-h-55 sm:max-h-100 w-auto group-hover:scale-110 transition duration-300' src={product.images[0]} alt="" />
             </div>
 
