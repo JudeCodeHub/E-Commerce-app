@@ -1,10 +1,10 @@
 'use client'
 import Image from "next/image";
-import { DotIcon } from "lucide-react";
 import { useSelector } from "react-redux";
 import Rating from "./Rating";
 import { useState } from "react";
 import RatingModal from "./RatingModal";
+import { orderStatusConfig } from "./store/OrderStatusSelect";
 
 const OrderItem = ({ order }) => {
 
@@ -13,90 +13,74 @@ const OrderItem = ({ order }) => {
 
     const { ratings } = useSelector(state => state.rating);
 
+    const statusConfig = orderStatusConfig[order.status] || {
+        label: order.status,
+        badge: "bg-white/5 text-muted",
+    };
+
     return (
-        <>
-            <tr className="text-sm">
-                <td className="text-left">
-                    <div className="flex flex-col gap-6">
-                        {order.orderItems.map((item, index) => {
-                            const userRating = ratings.find(rating => order.id === rating.orderId && item.product.id === rating.productId);
-                            return (
-                                <div key={index} className="flex items-center gap-4">
-                                    <div className="w-20 aspect-square bg-slate-100 flex items-center justify-center rounded-md">
-                                        <Image
-                                            className="h-14 w-auto"
-                                            src={item.product.images[0]}
-                                            alt="product_img"
-                                            width={50}
-                                            height={50}
-                                        />
-                                    </div>
-                                    <div className="flex flex-col justify-center text-sm">
-                                        <p className="font-medium text-slate-200 text-base">{item.product.name}</p>
-                                        <p>{currency}{item.price} Qty : {item.quantity} </p>
-                                        <p className="mb-1">{new Date(order.createdAt).toDateString()}</p>
-                                        <div>
-                                            {userRating ? (
-                                                <Rating value={userRating.rating} />
-                                            ) : (
-                                                <button
-                                                    onClick={() => setRatingModal({ orderId: order.id, productId: item.product.id })}
-                                                    className={`text-amber-500 hover:bg-amber-500/10 transition ${order.status !== "DELIVERED" && 'hidden'}`}
-                                                >
-                                                    Rate Product
-                                                </button>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                        {ratingModal && <RatingModal ratingModal={ratingModal} setRatingModal={setRatingModal} />}
-                    </div>
-                </td>
+        <div className="bg-panel border border-white/10 rounded-2xl p-6">
+            <div className="flex items-center justify-between flex-wrap gap-2 pb-4 mb-4 border-b border-white/10">
+                <div>
+                    <p className="text-xs text-muted uppercase tracking-wide">Order Placed</p>
+                    <p className="text-sm text-slate-200 font-medium">{new Date(order.createdAt).toDateString()}</p>
+                </div>
+                <span className={`text-xs font-semibold px-3 py-1.5 rounded-full ${statusConfig.badge}`}>
+                    {statusConfig.label}
+                </span>
+            </div>
 
-                <td className="text-center max-md:hidden">{currency}{order.total}</td>
+            <div className="flex flex-col gap-5">
+                {order.orderItems.map((item, index) => {
+                    const userRating = ratings.find(rating => order.id === rating.orderId && item.product.id === rating.productId);
+                    return (
+                        <div key={index} className="flex items-center gap-4">
+                            <div className="size-16 shrink-0 bg-surface-light rounded-lg flex items-center justify-center overflow-hidden">
+                                <Image
+                                    className="h-12 w-auto object-contain"
+                                    src={item.product.images[0]}
+                                    alt={item.product.name}
+                                    width={60}
+                                    height={60}
+                                />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <p className="font-medium text-slate-100 truncate">{item.product.name}</p>
+                                <p className="text-sm text-muted">{currency}{item.price} &times; {item.quantity}</p>
+                            </div>
+                            <div className="shrink-0">
+                                {userRating ? (
+                                    <Rating value={userRating.rating} />
+                                ) : order.status === "DELIVERED" && (
+                                    <button
+                                        onClick={() => setRatingModal({ orderId: order.id, productId: item.product.id })}
+                                        className="text-xs font-semibold text-accent hover:text-accent-hover transition-colors"
+                                    >
+                                        Rate Product
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
 
-                <td className="text-left max-md:hidden">
-                    <p>{order.address.name}, {order.address.street},</p>
-                    <p>{order.address.city}, {order.address.state}, {order.address.zip}, {order.address.country},</p>
-                    <p>{order.address.phone}</p>
-                </td>
+            {ratingModal && <RatingModal ratingModal={ratingModal} setRatingModal={setRatingModal} />}
 
-                <td className="text-left space-y-2 text-sm max-md:hidden">
-                    <div
-                        className={`flex items-center justify-center gap-1 rounded-full p-1 ${order.status === 'confirmed'
-                            ? 'text-yellow-300 bg-yellow-500/20'
-                            : order.status === 'delivered'
-                                ? 'text-amber-300 bg-amber-500/20'
-                                : 'text-slate-300 bg-slate-800'
-                            }`}
-                    >
-                        <DotIcon size={10} className="scale-250" />
-                        {order.status.split('_').join(' ').toLowerCase()}
-                    </div>
-                </td>
-            </tr>
-            {/* Mobile */}
-            <tr className="md:hidden">
-                <td colSpan={5}>
-                    <p>{order.address.name}, {order.address.street}</p>
-                    <p>{order.address.city}, {order.address.state}, {order.address.zip}, {order.address.country}</p>
-                    <p>{order.address.phone}</p>
-                    <br />
-                    <div className="flex items-center">
-                        <span className='text-center mx-auto px-6 py-1.5 rounded bg-amber-500/20 text-amber-300' >
-                            {order.status.replace(/_/g, ' ').toLowerCase()}
-                        </span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td colSpan={4}>
-                    <div className="border-b border-slate-800 w-6/7 mx-auto" />
-                </td>
-            </tr>
-        </>
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mt-5 pt-5 border-t border-white/10">
+                <div className="text-sm">
+                    <p className="text-xs text-muted uppercase tracking-wide mb-1">Shipping Address</p>
+                    <p className="text-slate-300">
+                        {order.address.name}, {order.address.street}, {order.address.city}, {order.address.state} {order.address.zip}, {order.address.country}
+                    </p>
+                    <p className="text-muted">{order.address.phone}</p>
+                </div>
+                <div className="text-right shrink-0">
+                    <p className="text-xs text-muted uppercase tracking-wide">Total</p>
+                    <p className="text-xl font-bold text-white">{currency}{order.total}</p>
+                </div>
+            </div>
+        </div>
     )
 }
 

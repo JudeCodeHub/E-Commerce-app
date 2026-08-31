@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { PaymentMethod } from "@prisma/client";
 import Stripe from "stripe";
+import { inngest } from "@/inngest/client";
 
 export async function POST(request) {
   try {
@@ -139,6 +140,14 @@ export async function POST(request) {
         },
       });
       orderIds.push(order.id);
+
+      if (paymentMethod !== "STRIPE") {
+        try {
+          await inngest.send({ name: "app/order.placed", data: { orderId: order.id } });
+        } catch (error) {
+          console.error("Failed to enqueue order.placed event:", error);
+        }
+      }
     }
 
     if (paymentMethod === "STRIPE") {

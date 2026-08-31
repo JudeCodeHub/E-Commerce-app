@@ -1,6 +1,7 @@
 import Stripe from "stripe";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { inngest } from "@/inngest/client";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -47,6 +48,11 @@ export async function POST(request) {
                 isPaid: true,
               },
             });
+            try {
+              await inngest.send({ name: "app/order.placed", data: { orderId } });
+            } catch (error) {
+              console.error("Failed to enqueue order.placed event:", error);
+            }
           })
         );
         await prisma.user.update({

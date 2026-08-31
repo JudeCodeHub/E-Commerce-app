@@ -1,5 +1,5 @@
 "use client";
-import { HeartIcon, House, PackageIcon, PackageSearch, ShieldCheckIcon, ShoppingCart, StoreIcon } from "lucide-react";
+import { House, PackageIcon, PackageSearch, ShieldCheckIcon, ShoppingCart, StoreIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -100,6 +100,16 @@ const Navbar = () => {
               </span>
             </Link>
 
+            {user && (
+              <Link
+                href="/orders"
+                className="flex items-center gap-2 text-slate-300 hover:text-amber-500 transition-colors"
+              >
+                <PackageIcon size={18} />
+                Orders
+              </Link>
+            )}
+
             {sellerCheckLoading ? (
               <div className="w-36 h-8 rounded-full bg-slate-800 animate-pulse" />
             ) : (
@@ -122,16 +132,6 @@ const Navbar = () => {
             ) : (
               <UserButton>
                 <UserButton.MenuItems>
-                  <UserButton.Action
-                    labelIcon={<PackageIcon size={16} />}
-                    label="My Orders"
-                    onClick={() => router.push("/orders")}
-                  />
-                  <UserButton.Action
-                    labelIcon={<HeartIcon size={16} />}
-                    label="Wishlist"
-                    onClick={() => router.push("/wishlist")}
-                  />
                   {isAdmin && (
                     <UserButton.Action
                       labelIcon={<ShieldCheckIcon size={16} />}
@@ -158,11 +158,6 @@ const Navbar = () => {
                     labelIcon={<PackageIcon size={16} />}
                     label="My Orders"
                     onClick={() => router.push("/orders")}
-                  />
-                  <UserButton.Action
-                    labelIcon={<HeartIcon size={16} />}
-                    label="Wishlist"
-                    onClick={() => router.push("/wishlist")}
                   />
                   {!sellerCheckLoading && (
                     <UserButton.Action

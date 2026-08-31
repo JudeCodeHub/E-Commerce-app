@@ -138,6 +138,7 @@ model Address {
     zip       String
     country   String
     phone     String
+    isDefault Boolean  @default(false)
     createdAt DateTime @default(now())
 
     // Relations

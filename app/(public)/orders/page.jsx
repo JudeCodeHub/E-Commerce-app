@@ -1,10 +1,11 @@
 "use client";
-import PageTitle from "@/components/PageTitle";
 import { useEffect, useState } from "react";
 import OrderItem from "@/components/OrderItem";
 import { useAuth, useUser } from "@clerk/nextjs";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { ArrowRightIcon, PackageIcon } from "lucide-react";
 import toast from "react-hot-toast";
 import Loading from "@/components/Loading";
 
@@ -49,36 +50,46 @@ export default function Orders() {
   }
 
   return (
-    <div className="min-h-[70vh] mx-6">
-      {orders.length > 0 ? (
-        <div className="my-20 max-w-7xl mx-auto">
-          <PageTitle
-            heading="My Orders"
-            text={`Showing total ${orders.length} orders`}
-            linkText={"Go to home"}
-          />
+    <div className="min-h-[70vh] max-w-4xl mx-auto px-6 xl:px-0 py-10">
+      <div className="mb-6">
+        <h1 className="text-2xl text-muted">
+          My <span className="text-white font-semibold">Orders</span>
+        </h1>
+        {orders.length > 0 && (
+          <div className="flex items-center gap-3 mt-1">
+            <p className="text-sm text-muted">
+              Showing total {orders.length} orders
+            </p>
+            <Link
+              href="/"
+              className="flex items-center gap-1 text-sm text-accent hover:text-accent-hover transition-colors"
+            >
+              Go to home <ArrowRightIcon size={14} />
+            </Link>
+          </div>
+        )}
+      </div>
 
-          <table className="w-full max-w-5xl text-slate-400 table-auto border-separate border-spacing-y-12 border-spacing-x-4">
-            <thead>
-              <tr className="max-sm:text-sm text-slate-300 max-md:hidden">
-                <th className="text-left">Product</th>
-                <th className="text-center">Total Price</th>
-                <th className="text-left">Address</th>
-                <th className="text-left">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <OrderItem order={order} key={order.id} />
-              ))}
-            </tbody>
-          </table>
+      {orders.length === 0 ? (
+        <div className="flex flex-col items-center justify-center h-80 gap-4">
+          <div className="size-14 rounded-2xl bg-panel border border-white/10 flex items-center justify-center">
+            <PackageIcon size={24} className="text-muted" />
+          </div>
+          <h2 className="text-xl text-muted font-medium">
+            You have no orders yet
+          </h2>
+          <Link
+            href="/shop"
+            className="px-6 py-2.5 rounded-lg bg-accent hover:bg-accent-hover text-slate-900 font-bold transition-colors"
+          >
+            Browse Products
+          </Link>
         </div>
       ) : (
-        <div className="min-h-[80vh] mx-6 flex items-center justify-center text-slate-400">
-          <h1 className="text-2xl sm:text-4xl font-semibold">
-            You have no orders
-          </h1>
+        <div className="flex flex-col gap-5">
+          {orders.map((order) => (
+            <OrderItem order={order} key={order.id} />
+          ))}
         </div>
       )}
     </div>
